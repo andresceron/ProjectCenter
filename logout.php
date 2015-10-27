@@ -13,4 +13,4 @@
 	if(!isset($_SESSION['user_session']))
 	{
 		$user->redirect('index.php');
-	}
+	} 

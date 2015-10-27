@@ -15,4 +15,4 @@ try {
 }
 
 include_once 'class.user.php';
-$user = new USER($DB_con);
+$user = new USER($DB_con); 
