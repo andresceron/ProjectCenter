@@ -15,4 +15,6 @@ try {
 }
 
 include_once 'class.user.php';
+include_once 'class.variables.php';
 $user = new USER($DB_con); 
+$variables = new VARIABLES($DB_con); 

@@ -31,11 +31,11 @@ class USER {
  
     public function login ($u_email,$u_pass) {
         try {
-            $query = "SELECT * FROM tbl_users WHERE user_email = :u_email LIMIT 1";
+            $query = "SELECT * FROM tbl_users WHERE user_email = ?";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array(
-                ':u_email' => $u_email,
-                ));
+                $u_email
+            ));
 
             $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
             
@@ -58,12 +58,12 @@ class USER {
         try {
             $query = "SELECT * FROM tbl_users AS u ";
             $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
-            // $query .= "WHERE user_id = :user_id";
+            $query .= "WHERE user_id = ?";
             $stmt = $this->db->prepare($query);
-            $stmt->execute();
+            $stmt->execute(array($user_id));
             $departmentRow = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return $departmentRow;   
+            return $departmentRow;  
 
         } catch(PDOException $e) {
             echo $e->getMessage();
@@ -86,6 +86,7 @@ class USER {
         return true;
     }
 
+    // Create a new project
     public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end) {
         try {
             $query = "INSERT INTO tbl_projects (proj_name, proj_desc, proj_date_start, proj_date_end)";
@@ -107,11 +108,107 @@ class USER {
         }    
     } 
 
+    // Fetch all projects
+    public function allProjects() {
+        try {
+            $query = 'SELECT proj_id, proj_name FROM tbl_projects';
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            $allProjectsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($allProjectsRow)) {
+                return $allProjectsRow;
+            } else {
+                return "nothing";
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch users all projects
+    public function userProjects($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($projRows)) {
+                return $projRows;
+            } else {
+                return "nothing";
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch projects with date previous
+    public function projectsDatePrevious($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
+            $query .= "WHERE user_id = ? AND proj_date_end < current_date() - interval 1 day";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($projRows)) {
+                return $projRows;
+            } else {
+                return "nothing";
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch projects with date previous
+    public function upcomingDatePrevious($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
+            $query .= "WHERE user_id = ? AND proj_date_end > current_date() - interval 1 day";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($projRows)) {
+                return $projRows;
+            } else {
+                return "nothing";
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch a specifik project
+    public function singleProject($proj_id) {
+        try {
+            $query = 'SELECT * FROM tbl_projects WHERE proj_id = :proj_id';
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array('proj_id' => $proj_id));
+            $singleProjectsRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $singleProjectsRow;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function getUrl() {
         $url  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
         $url .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
         $url .= $_SERVER["REQUEST_URI"];
-        
         return $url;
     }
     

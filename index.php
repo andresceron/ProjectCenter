@@ -1,30 +1,23 @@
 <?php
-  require_once 'dbconfig.php';
-
-  if($user->is_loggedin()!="") {
-    $user->redirect('home.php');
-  }
-
-  if(isset($_POST['btn-login'])) {
-    $u_email = $_POST['txt_u_email'];
-    $u_pass = $_POST['txt_u_pass'];
+    require_once 'dbconfig.php';
     
-    if($user->login($u_email,$u_pass)) {
-      $user->redirect('home.php?userLoggedIn');
-    } else {
-      $error = "Wrong Details !";
-    }  
-  }
+    if($user->is_loggedin()!="") {
+        $user->redirect('views/pages/home.php');
+    }
+
+    if(isset($_POST['btn-login'])) {
+        $u_email = $_POST['txt_u_email'];
+        $u_pass = $_POST['txt_u_pass'];
+    
+        if($user->login($u_email,$u_pass)) {
+            $user->redirect('views/pages/home.php?userLoggedIn');
+        } else {
+            $error = "Wrong Details !";
+        }  
+    }
+
+    include 'views/partials/header.php';
 ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Login : cleartuts</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="style.css" type="text/css"  />
-</head>
-<body>
 <div class="container">
      <div class="form-container">
         <form method="post">
@@ -52,7 +45,7 @@
                 </button>
             </div>
             <br />
-            <label>Don't have account yet ! <a href="sign-up.php">Sign Up</a></label>
+            <label>Don't have account yet ! <a href="views/pages/sign-up.php">Sign Up</a></label>
         </form>
        </div>
 </div>
