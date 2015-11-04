@@ -50,7 +50,7 @@
 						<?php //TODO: Generate the active projects ?>
 						<div class="list-group">
 							<div class="project-lists">
-								<?php $variable = $user->userProjects($user_id); ?>
+								<?php $variable = $user->activeProjects($user_id); ?>
 								<?php foreach ($variable as $row): ?>	
 									<form method="post" action="home.php">
 									<button name="projectDetail"><?= $row['proj_name']; ?>
@@ -70,7 +70,7 @@
 						<?php //TODO: Generate the previous projects ?>
 						<div class="list-group">
 							<div class="project-lists">
-								<?php $projRows = $user->upcomingDatePrevious($user_id); ?>	
+								<?php $projRows = $user->upcomingProjects($user_id); ?>	
 								<?php foreach ($projRows as $row): ?>	
 									<form method="post" action="home.php">
 										<button name="projectDetail"><?= $row['proj_name']; ?>
@@ -90,7 +90,7 @@
 						<?php //TODO: Generate the previous projects ?>
 						<div class="list-group">
 							<div class="project-lists">
-								<?php $projRows = $user->projectsDatePrevious($user_id); ?>	
+								<?php $projRows = $user->previousProjects($user_id); ?>	
 								<?php foreach ($projRows as $row): ?>	
 									<form method="post" action="home.php">
 										<button name="projectDetail"><?= $row['proj_name']; ?>

@@ -149,11 +149,11 @@ class USER {
     }
 
     // Fetch projects with date previous
-    public function projectsDatePrevious($user_id) {
+    public function previousProjects($user_id) {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_date_end < current_date() - interval 1 day";
+            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_end < current_date() - interval 1 day";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -161,7 +161,7 @@ class USER {
             if(!empty($projRows)) {
                 return $projRows;
             } else {
-                return "nothing";
+                return "No previous projects";
             }
 
         } catch(PDOException $e) {
@@ -169,21 +169,34 @@ class USER {
         }
     }
 
-    // Fetch projects with date previous
-    public function upcomingDatePrevious($user_id) {
+    // Fetch projects with date upcoming
+    public function upcomingProjects($user_id) {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_date_end > current_date() - interval 1 day";
+            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_end > current_date() - interval 1 day";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if(!empty($projRows)) {
                 return $projRows;
-            } else {
-                return "nothing";
-            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch projects that are active
+    public function activeProjects($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
+            $query .= "WHERE user_id = ? AND proj_state = 1";  
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return $projRows;
 
         } catch(PDOException $e) {
             echo $e->getMessage();
