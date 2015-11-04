@@ -161,7 +161,7 @@ class USER {
             if(!empty($projRows)) {
                 return $projRows;
             } else {
-                return "No previous projects";
+                return "No previous projects"; 
             }
 
         } catch(PDOException $e) {

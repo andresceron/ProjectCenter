@@ -87,7 +87,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Previous Projects</div>
 					<div class="panel-body">
-						<?php //TODO: Generate the previous projects ?>
+						<?php //TODO: Generate the previous projects ?> 
 						<div class="list-group">
 							<div class="project-lists">
 								<?php $projRows = $user->previousProjects($user_id); ?>	
