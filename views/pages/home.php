@@ -6,28 +6,11 @@
 		$user->redirect('index.php');
 	}
 
-	// Fetch my department
-   	$query = "SELECT * FROM tbl_users AS u ";
-    $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
-    $query .= "WHERE user_id = ?";
-    $stmt = $DB_con->prepare($query);
-    $stmt->execute(array($user_id));
-    $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
-
     // Fetch selected PROJECT and redirect to..
     if (isset($_POST['projectDetail'])) {
 	    $_SESSION['proj_id'] = $_POST['proj_id'];
         header('location: project-detail.php');
     }
-
-	//	$query = 'SELECT proj_id, proj_name FROM tbl_projects';
-	//	$stmt = $DB_con->prepare($query);
-	//	$stmt->execute();
-	//	$allProjectsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	// Testing with timestamp fetch projects
-
-	// $user->department_name();
 
 	include '../partials/header.php';
 	include '../partials/nav.php';
@@ -38,27 +21,31 @@
 			<?php if(isset($_GET['userLoggedIn'])): ?>
 				<div class="alert alert-success">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					Welcome: <?= $userRow['user_firstname'] . " " . $userRow['user_lastname']?> If you need any support, write to support@support.com	
+					Welcome: <?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname']?> If you need any support, write to support@support.com	
 				</div>
 				
 			<?php endif; ?>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-8 accordion-icons">
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#activeProjects">
 						<h4 class="panel-title">
-					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#activeProjects">
-			         			Active projects
+					        <a class="collapsed">
+			         			<i class="indicator glyphicon glyphicon-chevron-up  pull-left"></i>
+			         				Active projects
+			         			<i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
 					        </a>
 				    	</h4>
 					</div>
+
 					<div id="activeProjects" class="panel-collapse collapse in" role="tabpanel">
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
 									<?php $projRows = $user->upcomingProjects($user_id); ?>
 									<?php if ($projRows === false): ?>
-										<span>No upcoming projects yet</span>
+										<p>No active projects yet</p></br>
+										<a href="create-project.php" class="btn btn-primary btn-md">Create new project</a> 
 									<?php else: ?>
 										<?php foreach ($projRows as $row): ?>
 											<form method="post" action="home.php">
@@ -76,10 +63,12 @@
 				  	</div>
 				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#upcomingProjects">
 						<h4 class="panel-title">
-					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#upcomingProjects">
-			         			Upcoming projects
+					        <a class="collapsed">
+			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+			         				Upcoming projects
+			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
 					</div>
@@ -108,10 +97,12 @@
 				</div>
 
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" role="button" data-toggle="collapse" href="#previousProjects">
 						<h4 class="panel-title">
-					        <a class="collapsed" role="button" data-toggle="collapse" href="#previousProjects">
-			         			Previous projects
+					        <a class="collapsed">
+			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+			         				Previous projects
+			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
 					</div>
@@ -136,26 +127,33 @@
 				</div>
 
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading"  role="button" data-toggle="collapse" data-parent="#accordion" href="#allProjects">
 						<h4 class="panel-title">
-					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-								All projects
+					        <a class="collapsed">
+								<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
+			         				All projects
+			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
 					</div>
-					<div id="collapseThree" class="panel-collapse collapse" role="tabpanel">
+					<div id="allProjects" class="panel-collapse collapse" role="tabpanel">
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
-									<?php $variable = $user->allProjects(); ?>
-									<?php foreach ($variable as $row): ?>	
-										<form method="post" action="home.php">
-										<button name="projectDetail"><?= $row['proj_name']; ?>
-											<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
-										</button>
-										<hr>
-										</form>
-									<?php endforeach;?>
+									<?php 
+										if($usertype == "1") { // Admin
+											foreach ($allProjects as $row): ?>	
+												<form method="post" action="home.php">
+												<button name="projectDetail"><?= $row['proj_name']; ?>
+													<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
+												</button>
+												<hr>
+												</form>
+											<?php endforeach;
+										} elseif ($usertype == "2") { // User
+											echo "hej";
+										}
+									?>
 								</div>
 							</div>
 					  	</div>
