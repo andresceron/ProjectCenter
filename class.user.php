@@ -108,6 +108,50 @@ class USER {
         }    
     } 
 
+    // Fetch users information with database
+    public function userData($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_users AS u ";
+            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $userRow;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function usertype($user_id) {
+        try {
+            $query = "SELECT user_usertype FROM tbl_users ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $usertype = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usertype = $usertype['user_usertype'];
+
+            if ($usertype == "1") {
+                $usertype = "Admin";
+                return $usertype;
+            } 
+            elseif ($usertype == "2") {
+                $usertype = "User"; 
+                return $usertype;
+            } 
+            else {
+                $usertype = "Not assigned yet";
+                return $usertype;
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     // Fetch all projects
     public function allProjects() {
         try {
