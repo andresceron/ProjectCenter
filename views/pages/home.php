@@ -50,11 +50,11 @@
 						<?php //TODO: Generate the active projects ?>
 						<div class="list-group">
 							<div class="project-lists">
-								<?php $variable = $user->activeProjects($user_id); ?>
-								<?php if ($variable === false): ?>
+								<?php $projRows = $user->activeProjects($user_id); ?>
+								<?php if ($projRows === false): ?>
 									<span>No active projects</span>
 								<?php else: ?>
-									<?php foreach ($variable as $row): ?>
+									<?php foreach ($projRows as $row): ?>
 										<form method="post" action="home.php">
 										<button name="projectDetail"><?= $row['proj_name']; ?>
 											<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
@@ -74,16 +74,20 @@
 						<?php //TODO: Generate the previous projects ?>
 						<div class="list-group">
 							<div class="project-lists">
-								<?php $projRows = $user->upcomingProjects($user_id); ?>	
-								<?php foreach ($projRows as $row): ?>	
-									<form method="post" action="home.php">
+								<?php $projRows = $user->upcomingProjects($user_id); ?>
+								<?php if ($projRows === false): ?>
+									<span>No upcoming projects yet</span>
+								<?php else: ?>
+									<?php foreach ($projRows as $row): ?>
+										<form method="post" action="home.php">
 										<button name="projectDetail"><?= $row['proj_name']; ?>
 											<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
 										</button>
 										<span><?= $row['proj_date_start'] ?></span>
 										<hr>
-									</form>	
-								<?php endforeach;?>
+										</form>
+									<?php endforeach; ?>
+								<?php endif; ?>
 							</div>
 						</div>
 				  	</div>

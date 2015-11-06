@@ -174,12 +174,16 @@ class USER {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_end > current_date() - interval 1 day";
+            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_start > current_date() + interval 1 day";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            if(!empty($projRows)) {
                 return $projRows;
+            } else {
+                return false;
+            }
 
         } catch(PDOException $e) {
             echo $e->getMessage();
