@@ -196,7 +196,14 @@ class USER {
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            if(!empty($projRows)) {
                 return $projRows;
+            } else {
+                return false;
+            }
+
+
+                // return $projRows;
 
         } catch(PDOException $e) {
             echo $e->getMessage();

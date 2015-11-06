@@ -51,15 +51,19 @@
 						<div class="list-group">
 							<div class="project-lists">
 								<?php $variable = $user->activeProjects($user_id); ?>
-								<?php foreach ($variable as $row): ?>	
-									<form method="post" action="home.php">
-									<button name="projectDetail"><?= $row['proj_name']; ?>
-										<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
-									</button>
-									<span><?= $row['proj_date_start'] ?></span>
-									<hr>
-									</form>
-								<?php endforeach;?>
+								<?php if ($variable === false): ?>
+									<span>No active projects</span>
+								<?php else: ?>
+									<?php foreach ($variable as $row): ?>
+										<form method="post" action="home.php">
+										<button name="projectDetail"><?= $row['proj_name']; ?>
+											<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
+										</button>
+										<span><?= $row['proj_date_start'] ?></span>
+										<hr>
+										</form>
+									<?php endforeach; ?>
+								<?php endif; ?>
 							</div>
 						</div>
 				  	</div>
