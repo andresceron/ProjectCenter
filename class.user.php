@@ -125,7 +125,25 @@ class USER {
         }
     }
 
+    // Naming the user/admin/etc...
     public function usertype($user_id) {
+        try {
+            $query = "SELECT user_usertype FROM tbl_users ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $usertype = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usertype = $usertype['user_usertype'];
+
+            return $usertype;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Naming the user/admin/etc...
+    public function usertypeName($user_id) {
         try {
             $query = "SELECT user_usertype FROM tbl_users ";
             $query .= "WHERE user_id = ?";
@@ -205,7 +223,7 @@ class USER {
             if(!empty($projRows)) {
                 return $projRows;
             } else {
-                return "No previous projects"; 
+                return false; 
             }
 
         } catch(PDOException $e) {

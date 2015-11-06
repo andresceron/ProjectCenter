@@ -5,7 +5,7 @@
 			<a class="navbar-brand color-white" href="#">
 	        <!-- <img alt="Brand" src="..."> -->
 	        <label>Project Manager</label> -
-	        <span>Logged in as: <?= $userInfo['user_usertype']; ?></span> | <span><?= $usertype ?></span>
+	        <span>Logged in as: <?= $userInfo['user_usertype']; ?></span> | <span><?= $usertypeName ?></span>
 	      	</a>
 	    </div>
 	    <div class="pull-right">
@@ -16,4 +16,4 @@
 			<a href="settings.php" class="fa fa-cog"></a>
 		</div>
 	</div>
-</nav> 
+</nav>

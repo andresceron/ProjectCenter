@@ -1,26 +1,19 @@
 <?php
 	
 	// User variables 
-	$user_id = $_SESSION['user_session'];	
-	$userInfo = $user->userData($user_id);
-	$usertype = $user->userType($user_id);
+	$user_id          = $_SESSION['user_session'];     	
+	$userInfo         = $user->userData($user_id);
+	$usertypeName     = $user->userTypeName($user_id);
+	$usertype         = $user->userType($user_id);
 
 	// Projects variables
-	$allProjects = $user->allProjects();
-
-	
-	
-
-
-	// if ($usertype == "1") {
-	// 	$usertype = "Admin";
-	// } elseif ($usertype == "2") {
-	// 	$usertype = "User"; 
-	// } elseif (empty($userInfo)) {
-	// 	$usertype = "Not assigned";
-	// }
+	$allProjects      = $user->allProjects();
+	$upcomingProjects = $user->upcomingProjects($user_id);
+	$previousProjects = $user->previousProjects($user_id);
+	$activeProjects   = $user->activeProjects($user_id);
+	$userProjects     = $user->userProjects($user_id);
 
 	// Common Assets variables
-	$assetsImg = $variables->getAssetsImg();
-	$assetsJs = $variables->getAssetsJS();
-	$assetsCss = $variables->getAssetsCSS();
+	$assetsImg        = $variables->getAssetsImg();
+	$assetsJs         = $variables->getAssetsJS();
+	$assetsCss        = $variables->getAssetsCSS();

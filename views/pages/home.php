@@ -42,12 +42,11 @@
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
-									<?php $projRows = $user->upcomingProjects($user_id); ?>
-									<?php if ($projRows === false): ?>
+									<?php if ($activeProjects === false): ?>
 										<p>No active projects yet</p></br>
 										<a href="create-project.php" class="btn btn-primary btn-md">Create new project</a> 
 									<?php else: ?>
-										<?php foreach ($projRows as $row): ?>
+										<?php foreach ($activeProjects as $row): ?>
 											<form method="post" action="home.php">
 											<button name="projectDetail"><?= $row['proj_name']; ?>
 												<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
@@ -76,11 +75,10 @@
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
-									<?php $projRows = $user->upcomingProjects($user_id); ?>
-									<?php if ($projRows === false): ?>
-										<span>No upcoming projects yet</span>
+									<?php if ($upcomingProjects === false): ?>
+										<p>No upcoming projects yet</p>
 									<?php else: ?>
-										<?php foreach ($projRows as $row): ?>
+										<?php foreach ($upcomingProjects as $row): ?>
 											<form method="post" action="home.php">
 											<button name="projectDetail"><?= $row['proj_name']; ?>
 												<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
@@ -110,16 +108,19 @@
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
-									<?php $projRows = $user->previousProjects($user_id); ?>	
-									<?php foreach ($projRows as $row): ?>	
-										<form method="post" action="home.php">
-											<button name="projectDetail"><?= $row['proj_name']; ?>
-												<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
-											</button>
-											<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
-											<hr>
-										</form>	
-									<?php endforeach;?>
+									<?php if ($previousProjects === false): ?>
+										<p>No previous projects yet</p>
+									<?php else: ?>
+										<?php foreach ($previousProjects as $row): ?>	
+											<form method="post" action="home.php">
+												<button name="projectDetail"><?= $row['proj_name']; ?>
+													<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
+												</button>
+												<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
+												<hr>
+											</form>	
+										<?php endforeach;?>
+									<?php endif;?>
 								</div>
 							</div>
 					  	</div>
@@ -131,7 +132,7 @@
 						<h4 class="panel-title">
 					        <a class="collapsed">
 								<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-			         				All projects
+			         				<?= (($user->usertype($user_id) == 1 ? "All projects" : "My projects")); ?>
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
@@ -140,8 +141,7 @@
 						<div class="panel-body">
 							<div class="list-group">
 								<div class="project-lists">
-									<?php 
-										if($usertype == "1") { // Admin
+									<?php if($usertype == "1") : // Admin
 											foreach ($allProjects as $row): ?>	
 												<form method="post" action="home.php">
 												<button name="projectDetail"><?= $row['proj_name']; ?>
@@ -149,11 +149,17 @@
 												</button>
 												<hr>
 												</form>
+										<?php endforeach;
+											elseif ($usertype == "2") : // User
+												foreach ($userProjects as $row): ?>	
+													<form method="post" action="home.php">
+													<button name="projectDetail"><?= $row['proj_name']; ?>
+														<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
+													</button>
+													<hr>
+													</form>
 											<?php endforeach;
-										} elseif ($usertype == "2") { // User
-											echo "hej";
-										}
-									?>
+												endif; ?>
 								</div>
 							</div>
 					  	</div>
