@@ -1,9 +1,11 @@
+
 <nav class="navbar bg-primary">
 	<div class="container-fluid">
 	    <div class="navbar-header">
 			<a class="navbar-brand color-white" href="#">
 	        <!-- <img alt="Brand" src="..."> -->
-	        <label>Project Manager</label>
+	        <label>Project Manager</label> -
+	        <span>Logged in as: <?= $userInfo['user_usertype']; ?></span> | <span><?= $usertype ?></span>
 	      	</a>
 	    </div>
 	    <div class="pull-right">

@@ -8,21 +8,21 @@
 			<button class="pull-right">Edit info</button>	
 		</div>
 		<div class="profilePicture">
-    		<img src="<?= $variables->getAssetsImg(); ?>/profiles/profile-demo.jpg" alt="<?= $userRow['user_firstname']?>">
+    		<img src="<?= $assetsImg; ?>/profiles/profile-demo.jpg" alt="<?= $userInfo['user_firstname']?>">
     	</div>
   	</div>
 	<table class="table">
 		<tr>
 			<td>Name:</td>
-			<td><?= $userRow['user_firstname'] . " " . $userRow['user_lastname'];?></td>
+			<td><?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname'];?></td>
 		</tr>
 		<tr>
 			<td>Department:</td>
-			<td><?= $userRow['department_name']; ?></td>
+			<td><?= $userInfo['department_name']; ?></td>
 		</tr>
 		<tr>
 			<td>E-mail:</td>
-			<td><?= $userRow['user_email']; ?></td>
+			<td><?= $userInfo['user_email']; ?></td>
 		</tr>
 	</table>
 </div>
