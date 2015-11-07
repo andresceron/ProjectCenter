@@ -8,14 +8,21 @@
 	Options -Indexes
 	IndexIgnore *
 
-# No access to files	
-	RewriteCond %{HTTP_REFERER} !^$
-	RewriteCond %{REQUEST_URI} !^/(assets/).* [NC]
-	RewriteCond %{HTTP_REFERER} !^http://localhost:8888.*$ [NC]
-	RewriteRule \.(ico|pdf|flv|jpg|jpeg|mp3|mpg|mp4|mov|wav|wmv|png|gif|swf|css|js)$ - [F,NS,L]
-
 # Specific upload time for files (20mb)
 	php_value upload_max_filesize 20M
 	php_value post_max_size 20M
 	php_value max_execution_time 200
 	php_value max_input_time 200
+
+
+	Options +FollowSymLinks
+	RewriteEngine On
+	RewriteCond %{SCRIPT_FILENAME} !-d
+	RewriteCond %{SCRIPT_FILENAME} !-f
+	RewriteRule ^.*$ ./index.php
+
+# secure htaccess file
+	<Files .htaccess>
+		order allow,deny
+		deny from all
+	</Files>
