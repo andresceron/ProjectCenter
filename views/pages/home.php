@@ -32,7 +32,8 @@
 						<h4 class="panel-title">
 					        <a class="collapsed">
 			         			<i class="indicator glyphicon glyphicon-chevron-up  pull-left"></i>
-			         				Active projects
+			         				
+			         				Active projects <span>(<?= count($activeProjects); ?>)</span>
 			         			<i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
 					        </a>
 				    	</h4>
@@ -66,7 +67,7 @@
 						<h4 class="panel-title">
 					        <a class="collapsed">
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-			         				Upcoming projects
+			         				Upcoming projects <span>(<?= count($upcomingProjects); ?>)</span>
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
@@ -99,7 +100,7 @@
 						<h4 class="panel-title">
 					        <a class="collapsed">
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-			         				Previous projects
+			         				Previous projects <span>(<?= count($previousProjects); ?>)</span>
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>
@@ -132,7 +133,7 @@
 						<h4 class="panel-title">
 					        <a class="collapsed">
 								<i class="indicator glyphicon glyphicon-chevron-down  pull-left"></i>
-			         				<?= (($user->usertype($user_id) == 1 ? "All projects" : "My projects")); ?>
+			         				<?= (($user->usertype($user_id) == 1 ? "All projects " . "(" .count($allProjects) . ")" : "My projects " . "(" . count($userProjects) . ")")); ?>
 			         			<i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
 					        </a>
 				    	</h4>

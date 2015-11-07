@@ -181,7 +181,7 @@ class USER {
             if(!empty($allProjectsRow)) {
                 return $allProjectsRow;
             } else {
-                return "nothing";
+                return false;
             }
 
         } catch(PDOException $e) {
@@ -202,7 +202,7 @@ class USER {
             if(!empty($projRows)) {
                 return $projRows;
             } else {
-                return "nothing";
+                return false;
             }
 
         } catch(PDOException $e) {
@@ -267,9 +267,6 @@ class USER {
             } else {
                 return false;
             }
-
-
-                // return $projRows;
 
         } catch(PDOException $e) {
             echo $e->getMessage();
