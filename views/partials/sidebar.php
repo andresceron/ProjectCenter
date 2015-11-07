@@ -8,7 +8,11 @@
 			<button class="pull-right">Edit info</button>	
 		</div>
 		<div class="profilePicture">
-    		<img src="<?= $assetsImg; ?>/profiles/profile-demo.jpg" alt="<?= $userInfo['user_firstname']?>">
+			<?php if(false): ?>
+				<img src="<?= $assetsImg; ?>/profiles/profile-demo.jpg" alt="<?= "profile-" . $userInfo['user_firstname'] ?>">			
+			<?php else: ?>
+    			<img src="<?= $assetsImg; ?>/profiles/default-pic.png" alt="<?= "profile-" . $userInfo['user_firstname']?>">		
+    		<?php endif; ?>
     	</div>
   	</div>
 	<table class="table">

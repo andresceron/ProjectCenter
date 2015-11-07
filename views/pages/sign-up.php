@@ -1,5 +1,7 @@
 <?php
 require_once '../../dbconfig.php';
+
+$cover = fopen('7.png','rb');
  
 if($user->is_loggedin()!="")
 {
