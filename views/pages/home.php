@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-12">
 			<?php if(isset($_GET['userLoggedIn'])): ?>
-				<div class="alert alert-success">
+				<div class="alert alert-success alert-fadeout">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					Welcome: <?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname']?> If you need any support, write to support@support.com	
 				</div>

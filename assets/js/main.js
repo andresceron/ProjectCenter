@@ -1,5 +1,6 @@
 $( document ).ready(function() {
 	    
+	// Toggle icons on click
 	function toggleChevron(e) {
 	    $(e.target)
 	        .prev('.panel-heading')
@@ -9,4 +10,8 @@ $( document ).ready(function() {
 	$('.accordion-icons').on('hidden.bs.collapse', toggleChevron);
 	$('.accordion-icons').on('shown.bs.collapse', toggleChevron);
 
+	// Alert timeout
+	$(".alert-fadeout").fadeTo(2000, 500).slideUp(500, function(){
+    	$(".alert-fadeout").alert('close');
+	});
 });
