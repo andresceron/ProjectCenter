@@ -1,7 +1,6 @@
 <?php
-	
 	// User variables 
-	$user_id          = $_SESSION['user_session'];     	
+	$user_id          = isset($_SESSION['user_session']);     	
 	$userInfo         = $user->userData($user_id);
 	$usertypeName     = $user->userTypeName($user_id);
 	$usertype         = $user->userType($user_id);

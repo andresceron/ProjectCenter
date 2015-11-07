@@ -1,11 +1,4 @@
 <?php 
-
-// $user->getUrl($url);
-$url_assets_img  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
-$url_assets_img .= ($_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
-$url_assets_img .= '/projectCenter'; // @TODO
-$url_assets_img .= '/assets/img';
-
 $homePage = "home.php";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

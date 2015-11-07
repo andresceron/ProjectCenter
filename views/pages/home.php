@@ -1,15 +1,15 @@
 <?php
-	include_once '../../dbconfig.php';
+	require_once '../../dbconfig.php';
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('index.php');
-	}
+		$user->redirect('../../index.php');
+	}	
 
     // Fetch selected PROJECT and redirect to..
     if (isset($_POST['projectDetail'])) {
 	    $_SESSION['proj_id'] = $_POST['proj_id'];
-        header('location: project-detail.php');
+        $user->redirect('project-detail.php');
     }
 
 	include '../partials/header.php';
