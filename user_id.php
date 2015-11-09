@@ -11,7 +11,7 @@
 	$previousProjects = $user->previousProjects($user_id);
 	$activeProjects   = $user->activeProjects($user_id);
 	$userProjects     = $user->userProjects($user_id);
-
+	$departments	  = $user->department_name();
 	// Common Assets variables
 	$assetsImg        = $variables->getAssetsImg();
 	$assetsJs         = $variables->getAssetsJS();

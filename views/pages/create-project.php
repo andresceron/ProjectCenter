@@ -5,12 +5,13 @@
 	if(!$user->is_loggedin()) {
 		$user->redirect('index.php');
 	}
-
 	if(isset($_POST['btn-newProject'])) {
 		$proj_name 			= $_POST['txt_proj_name'];
 		$proj_desc 			= $_POST['txt_proj_desc'];
 		$proj_date_start 	= $_POST['txt_proj_date_start'];
 		$proj_date_end 		= $_POST['txt_proj_date_end'];
+		$user_id	 		= $_POST['txt_user_id'];
+        $chk				= "";  
  
 		if (empty($proj_name)) {
 			$error[] = "provide Proj Name !"; 
@@ -22,7 +23,7 @@
 			$error[] = "provide end date!"; 
 		} else {
 			try {
-				if($user->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end)) {
+				if($user->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $user_id, $chk)) {
 					$user->redirect('create-project.php?ProjCreated');
 				}
 			} catch(PDOException $e) {
@@ -33,8 +34,9 @@
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
+
 	<div class="container create-project">
-		<p>Logged in as: <?= ($userRow['user_firstname']); ?></p>
+		<p>Logged in as: <?= ($userInfo['user_firstname']); ?></p>
 		<h2>Create a new project</h2><hr />
 		</br>
 		<?php if(isset($error)) { foreach($error as $error) { ?>
@@ -80,11 +82,17 @@
 								<input type="date" class="form-control" name="txt_proj_date_end" placeholder="Project End date" value="<?php if(isset($error)){echo $proj_date_end;}?>" />
 							</div>		
 						</div>
-						<div class="clearfix"></div><hr />
-						<div class="step-next">
-							<div class="form-group col-md-12">
-								<button class="btn btn-md btn-primary btn-steps">Next step</button>
-							</div>
+						<div class="step-date">
+							
+							<h4>Select your Team:</h4>
+							<?php foreach ($departments as $row): ?>
+								<div class="checkbox">
+								 	<label>
+								    	<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>"><?= $row['user_firstname'] . " | " . $row['department_name']; ?>
+								  	</label>
+								</div>	
+							<?php endforeach ?>
+								
 						</div>
 						<div class="step-create">
 							<div class="form-group col-md-12">

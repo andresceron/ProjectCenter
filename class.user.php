@@ -56,14 +56,13 @@ class USER {
     // @TODO: Not working
     public function department_name() {
         try {
-            $query = "SELECT * FROM tbl_users AS u ";
-            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
-            $query .= "WHERE user_id = ?";
+            $query = "SELECT user_id, user_firstname, user_lastname, user_department, department_name FROM tbl_users AS u ";
+            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id";
             $stmt = $this->db->prepare($query);
-            $stmt->execute(array($user_id));
-            $departmentRow = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $departmentRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $departmentRow;  
+            return $departmentRow; 
 
         } catch(PDOException $e) {
             echo $e->getMessage();
@@ -87,13 +86,12 @@ class USER {
     }
 
     // Create a new project
-    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end) {
+    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $user_id, $chk) {
         try {
-            $query = "INSERT INTO tbl_projects (proj_name, proj_desc, proj_date_start, proj_date_end)";
+            $query = "INSERT INTO tbl_projects (proj_name, proj_desc, proj_date_start, proj_date_end) ";
             $query .= "VALUES (:proj_name, :proj_desc, :proj_date_start, :proj_date_end)";
             
             $stmt = $this->db->prepare($query);    
-
             $result = $stmt->execute(
                 array(
                     'proj_name' => $proj_name,
@@ -101,8 +99,24 @@ class USER {
                     'proj_date_start' => $proj_date_start,
                     'proj_date_end' => $proj_date_end
                 ));
-     
-            return $stmt; 
+
+            // $last_id = $this->db->lastInsertId();
+            $last_id = $this->db->lastInsertId();
+
+            foreach($user_id as $chk1) {  
+
+                $query2 = "INSERT INTO tbl_link(proj_id, user_id) ";
+                $query2 .= "VALUES (?, ?) ";
+                $stmt2  = $this->db->prepare($query2);
+                $result = $stmt2->execute(
+                    array(
+                        $last_id,
+                        $chk1     
+                    ));            
+            } 
+
+            return true;
+
         } catch(PDOException $e) {
             echo $e->getMessage();
         }    
@@ -173,7 +187,7 @@ class USER {
     // Fetch all projects
     public function allProjects() {
         try {
-            $query = 'SELECT proj_id, proj_name FROM tbl_projects';
+            $query = 'SELECT proj_id, proj_name FROM tbl_projects ';
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             $allProjectsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
