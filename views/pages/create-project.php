@@ -5,25 +5,39 @@
 	if(!$user->is_loggedin()) {
 		$user->redirect('index.php');
 	}
+
+	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = "" ;
+
 	if(isset($_POST['btn-newProject'])) {
 		$proj_name 			= $_POST['txt_proj_name'];
 		$proj_desc 			= $_POST['txt_proj_desc'];
 		$proj_date_start 	= $_POST['txt_proj_date_start'];
 		$proj_date_end 		= $_POST['txt_proj_date_end'];
-		$user_id	 		= $_POST['txt_user_id'];
-        $chk				= "";  
+		$chk				= "";  
+
+		if(!empty($POST['txt_user_id'])) {
+			$proj_users_id	= $_POST['txt_user_id'];	
+		} else {
+			$proj_users_id = "";
+		}
  
 		if (empty($proj_name)) {
-			$error[] = "provide Proj Name !"; 
+			$error[] = "Please provide a project name for this project!"; 
+		} elseif(strlen($proj_name) < 7) {
+			$error[] = "Project name has to be at least 7 character long"; 
 		} elseif (empty($proj_desc)) {
-			$error[] = "provide Proj Desc !"; 
+			$error[] = "Please provide a description for this project!"; 
+		} elseif(strlen($proj_desc) < 15) {
+			$error[] = "Project name has to be at least 15 character long"; 
 		} elseif (empty($proj_date_start)) {
-			$error[] = "provide start date !"; 
+			$error[] = "Please provide an start date for this project!"; 
 		} elseif (empty($proj_date_end)) {
-			$error[] = "provide end date!"; 
+			$error[] = "Please provide an end date for this project!"; 
+		} elseif ($proj_date_start < $proj_date_end) {
+			$error[] = "The end date must be set AFTER the start date";
 		} else {
 			try {
-				if($user->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $user_id, $chk)) {
+				if($user->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk)) {
 					$user->redirect('create-project.php?ProjCreated');
 				}
 			} catch(PDOException $e) {
@@ -75,15 +89,14 @@
 						<div class="step-date">
 							<label class="col-md-2">Start date: </label>
 							<div class="col-md-10 form-group">
-								<input type="date" class="form-control" name="txt_proj_date_start" placeholder="Project Start date" value="<?php if(isset($error)){echo $proj_date_start;}?>" />
+								<input type="date" class="form-control" name="txt_proj_date_start" placeholder="Project Start date" value="<?php if(isset($error)){echo $proj_date_start;}?>"/>
 							</div>						
 							<label class="col-md-2">End date:</label>
 							<div class="col-md-10 form-group">
-								<input type="date" class="form-control" name="txt_proj_date_end" placeholder="Project End date" value="<?php if(isset($error)){echo $proj_date_end;}?>" />
+								<input type="date" class="form-control" name="txt_proj_date_end" placeholder="Project End date" value="<?php if(isset($error)){echo $proj_date_end;}?>"/>
 							</div>		
 						</div>
-						<div class="step-date">
-							
+						<div class="step-team">
 							<h4>Select your Team:</h4>
 							<?php foreach ($departments as $row): ?>
 								<div class="checkbox">
@@ -92,7 +105,6 @@
 								  	</label>
 								</div>	
 							<?php endforeach ?>
-								
 						</div>
 						<div class="step-create">
 							<div class="form-group col-md-12">

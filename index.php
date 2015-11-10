@@ -1,7 +1,7 @@
 <?php
     require_once 'dbconfig.php';
     
-    if($user->is_loggedin()!="") {
+    if(!empty($user->is_loggedin())) {
         $user->redirect('views/pages/home.php');
     }
 
@@ -24,14 +24,11 @@
             <h2>Sign in.</h2><hr />
             <?php
             if(isset($error))
-            {
-                  ?>
-                  <div class="alert alert-danger">
-                      <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
-                  </div>
-                  <?php
-            }
-            ?>
+            { ?>
+              <div class="alert alert-danger">
+                  <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
+              </div>
+            <?php } ?>
             <div class="form-group">
              <input type="text" class="form-control" name="txt_u_email" placeholder="Your E-mail" required />
             </div>

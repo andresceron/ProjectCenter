@@ -52,7 +52,7 @@
 											<button name="projectDetail"><?= $row['proj_name']; ?>
 												<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
 											</button>
-											<span><?= $row['proj_date_start'] ?></span>
+											<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end']; ?></span>
 											<hr>
 											</form>
 										<?php endforeach; ?>
@@ -148,6 +148,7 @@
 												<button name="projectDetail"><?= $row['proj_name']; ?>
 													<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
 												</button>
+												<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
 												<hr>
 												</form>
 										<?php endforeach;
@@ -157,6 +158,7 @@
 													<button name="projectDetail"><?= $row['proj_name']; ?>
 														<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
 													</button>
+													<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
 													<hr>
 													</form>
 											<?php endforeach;

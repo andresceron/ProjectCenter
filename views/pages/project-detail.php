@@ -7,14 +7,27 @@
 	}
 	
 	$proj_id = $_SESSION['proj_id'];
-
-	// Fetch THIS PROJECTS
-    // $query = 'SELECT * FROM tbl_projects WHERE proj_id = :proj_id';
-    // $stmt = $DB_con->prepare($query);
-    // $stmt->execute(array('proj_id' => $proj_id));
-    // $singleProjectsRow = $stmt->fetch(PDO::FETCH_ASSOC);
     
     $singleProjectsRow = $user->singleProject($proj_id);
+
+	if(isset($_POST['btn-status'])) {
+		$btnStatus = $_POST['btn-status'];
+ 
+		if ($btnStatus == "Done") {
+			$btnStatus = "2";
+		} elseif ($btnStatus == "Active" ) {
+			$btnStatus = "1";
+		} elseif ($btnStatus == "Upcoming") {
+			$btnStatus = "0";
+		}
+		try {
+			if($user->updateProj($btnStatus, $proj_id)) {
+				$user->redirect('project-detail.php?StatusUpdated');
+			}
+		} catch(PDOException $e) {
+			echo $e->getMessage();
+		}
+	}
 
 	include '../partials/header.php';
 	include '../partials/nav.php';
@@ -22,6 +35,11 @@
 	<div class="container content">
 		<div class="row">
 			<div class="col-md-8">
+				<?php if(isset($_GET['StatusUpdated'])) : ?>
+					<div class="alert alert-info">
+			 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Project Status changed to...
+					</div>
+				<?php endif ?>
 				<div class="panel panel-default">
 				<?= $proj_id; ?>
 					<div class="panel-heading">Project Details</div>
@@ -65,9 +83,22 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-md btn-info" name="">Edit</button>
+				<button type="button" class="btn btn-md btn-info" name="">Edit</button>
 			</div>
 			<div class="col-md-4">
+				<div class="row">
+					<form method="POST">
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Active" />
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Done" />
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Upcoming" />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

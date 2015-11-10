@@ -86,7 +86,7 @@ class USER {
     }
 
     // Create a new project
-    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $user_id, $chk) {
+    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk) {
         try {
             $query = "INSERT INTO tbl_projects (proj_name, proj_desc, proj_date_start, proj_date_end) ";
             $query .= "VALUES (:proj_name, :proj_desc, :proj_date_start, :proj_date_end)";
@@ -103,17 +103,37 @@ class USER {
             // $last_id = $this->db->lastInsertId();
             $last_id = $this->db->lastInsertId();
 
-            foreach($user_id as $chk1) {  
+            if (!empty($proj_users_id)) {
+                foreach($proj_users_id as $proj_user_id) {  
 
-                $query2 = "INSERT INTO tbl_link(proj_id, user_id) ";
-                $query2 .= "VALUES (?, ?) ";
+                    $query2 = "INSERT INTO tbl_link(proj_id, user_id) ";
+                    $query2 .= "VALUES (?, ?) ";
+                    $stmt2  = $this->db->prepare($query2);
+                    $result = $stmt2->execute(
+                        array(
+                            $last_id,
+                            $proj_user_id
+                        ));            
+                }
+            } else {
+                $query2 = "INSERT INTO tbl_link(proj_id) ";
+                $query2 .= "VALUES (?) ";
                 $stmt2  = $this->db->prepare($query2);
                 $result = $stmt2->execute(
                     array(
-                        $last_id,
-                        $chk1     
+                        $last_id
                     ));            
-            } 
+            }
+            // else {
+            //     $query2 = "INSERT INTO tbl_link(proj_id, user_id) ";
+            //     $query2 .= "VALUES (?, ?) ";
+            //     $stmt2  = $this->db->prepare($query2);
+            //     $result = $stmt2->execute(
+            //         array(
+            //             $last_id,
+            //             $proj_user_id
+            //         ));  
+            // } 
 
             return true;
 
@@ -121,6 +141,23 @@ class USER {
             echo $e->getMessage();
         }    
     } 
+
+    public function updateProj($btnStatus, $proj_id) {
+        try {
+            $query = "UPDATE tbl_projects SET proj_state = ? WHERE proj_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(
+                array(
+                    $btnStatus,
+                    $proj_id
+                ));
+
+            return true;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
     // Fetch users information with database
     public function userData($user_id) {
@@ -208,7 +245,8 @@ class USER {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ?";
+            $query .= "WHERE user_id = ? ";
+            $query .= "ORDER BY proj_date_start ASC";  
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -224,33 +262,13 @@ class USER {
         }
     }
 
-    // Fetch projects with date previous
-    public function previousProjects($user_id) {
-        try {
-            $query = "SELECT * FROM tbl_link as l ";
-            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_end < current_date() - interval 1 day";
-            $stmt = $this->db->prepare($query);
-            $stmt->execute(array($user_id));
-            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if(!empty($projRows)) {
-                return $projRows;
-            } else {
-                return false; 
-            }
-
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
     // Fetch projects with date upcoming
     public function upcomingProjects($user_id) {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_start > current_date() + interval 1 day";
+            $query .= "WHERE user_id = ? AND proj_state = 0 AND proj_date_start > current_date() + interval 1 day ";
+            $query .= "ORDER BY proj_date_start ASC";  
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -271,7 +289,8 @@ class USER {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
-            $query .= "WHERE user_id = ? AND proj_state = 1";  
+            $query .= "WHERE user_id = ? AND proj_state = 1 ";  
+            $query .= "ORDER BY proj_date_end ASC";  
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
             $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -280,6 +299,28 @@ class USER {
                 return $projRows;
             } else {
                 return false;
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Fetch projects with date previous
+    public function previousProjects($user_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_projects as p on l.proj_id = p.proj_id ";
+            $query .= "WHERE user_id = ? AND proj_state = 2 ";
+            $query .= "ORDER BY proj_date_end DESC";  
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($user_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($projRows)) {
+                return $projRows;
+            } else {
+                return false; 
             }
 
         } catch(PDOException $e) {
