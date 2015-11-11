@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0066)http://localhost:8888/projectCenter/views/pages/project-detail.php -->
+<html hola_ext_inject="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<link rel="stylesheet" href="./Project Center - Manager_files/bootstrap.min.css">
+		<link rel="stylesheet" href="./Project Center - Manager_files/font-awesome.min.css">
+		<link rel="stylesheet" href="./Project Center - Manager_files/style.css" type="text/css">
+		<title>Project Center - Manager</title>
+	<style type="text/css"></style></head>
+	<body>
+
+<nav class="navbar bg-primary">
+	<div class="container-fluid">
+	    <div class="navbar-header">
+			<a class="navbar-brand color-white" href="http://localhost:8888/projectCenter/views/pages/project-detail.php#">
+	        <!-- <img alt="Brand" src="..."> -->
+	        <label>Project Manager</label> -
+	        <span>Logged in as: 2</span> | <span>User</span>
+	      	</a>
+	    </div>
+	    <div class="pull-right">
+	    					<a href="http://localhost:8888/projectCenter/views/pages/home.php" class="btn btn-info navbar-btn"><i class=""></i> Back to home</a> 
+						<a href="http://localhost:8888/projectCenter/views/pages/logout.php?logout=true" class="btn btn-danger navbar-btn"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+			<a href="http://localhost:8888/projectCenter/views/pages/settings.php" class="fa fa-cog"></a>
+		</div>
+	</div>
+</nav>	<div class="container content">
+		<div class="row">
+			<div class="col-md-8">
+								<div class="panel panel-default">
+				30					<div class="panel-heading">Project Details</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-4">
+								Project name:
+							</div>
+							<div class="col-md-8">
+								Proj 3							</div>
+							<br><hr>
+							<div class="col-md-4">
+								Project description:
+							</div>
+							<div class="col-md-8">
+								Project Description Holder							</div>
+							<br><hr>
+							<div class="col-md-4">
+								Project Start date:
+							</div>
+							<div class="col-md-8">
+								2014-01-02							</div>
+							<br><hr>
+							<div class="col-md-4">
+								Project End date:
+							</div>
+							<div class="col-md-8">
+								2015-02-02							</div>
+							<br><hr>
+							<div class="col-md-4">
+								Departments:
+							</div>
+							<div class="col-md-8">
+								@TODO							</div>
+							<br><hr>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="btn btn-md btn-info" name="">Edit</button>
+			</div>
+			<div class="col-md-4">
+			<div class="project-team">
+				<h4>The Team</h4>
+									<p>Andres Ceron Moreno</p>
+									<p>Katherine Castaño</p>
+							</div>
+
+				<div class="row">
+					<form method="POST">
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Active">
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-success" name="btn-status" value="Done">
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-warning" name="btn-status" value="Upcoming">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+		<footer class="footer">
+			<p class="text-center">Copyright © 2015 | Andres Ceron</p>
+		</footer>
+	
+	<script src="./Project Center - Manager_files/jquery.min.js"></script>
+	<script type="text/javascript" src="./Project Center - Manager_files/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./Project Center - Manager_files/main.js"></script>
+	<script src="./Project Center - Manager_files/jquery.bootstrap.wizard.min.js"></script>
+	<script>
+	$(document).ready(function() {				
+		$('#inverse').bootstrapWizard({'tabClass': 'nav', 'debug': false, onShow: function(tab, navigation, index) {
+			console.log('onShow');
+		}, onNext: function(tab, navigation, index) {
+			console.log('onNext');
+			if(index==2) {
+				// Make sure we entered the name
+				if(!$('#name').val()) {
+					alert('You must enter your name');
+					$('#name').focus();
+					return false;
+				}
+			}			
+		// Set the name for the next tab
+		$('#inverse-tab3').html('Hello, ' + $('#name').val());				
+			}, onPrevious: function(tab, navigation, index) {
+				console.log('onPrevious');
+			}, onLast: function(tab, navigation, index) {
+				console.log('onLast');
+			}, onTabClick: function(tab, navigation, index) {
+				console.log('onTabClick');
+				alert('on tab click disabled');
+				return false;
+			}, onTabShow: function(tab, navigation, index) {
+				console.log('onTabShow');
+				var $total = navigation.find('li').length;
+				var $current = index+1;
+				var $percent = ($current/$total) * 100;
+				$('#inverse').find('.bar').css({width:$percent+'%'});
+			}});
+		$('#tabsleft .finish').click(function() {
+			alert('Finished!, Starting over!');
+			$('#tabsleft').find("a[href*='tabsleft-tab1']").trigger('click');
+		});	
+	});
+	</script>
+ </body></html>
