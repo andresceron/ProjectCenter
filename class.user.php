@@ -343,6 +343,27 @@ class USER {
         }
     }
 
+    // Fetch all users ons detailed project
+    public function allUsersProj($proj_id) {
+        try {
+            $query = "SELECT * FROM tbl_link as l ";
+            $query .= "LEFT JOIN tbl_users as p on l.user_id = p.user_id ";
+            $query .= "WHERE proj_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($proj_id));
+            $projRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($projRows)) {
+                return $projRows;
+            } else {
+                return false;
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function getUrl() {
         $url  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
         $url .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";

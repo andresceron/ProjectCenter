@@ -10,6 +10,8 @@
     
     $singleProjectsRow = $user->singleProject($proj_id);
 
+    $allUsers = $user->allUsersProj($proj_id);
+
 	if(isset($_POST['btn-status'])) {
 		$btnStatus = $_POST['btn-status'];
  
@@ -86,16 +88,23 @@
 				<button type="button" class="btn btn-md btn-info" name="">Edit</button>
 			</div>
 			<div class="col-md-4">
+			<div class="project-team">
+				<h4>The Team</h4>
+				<?php foreach ($allUsers as $row): ?>
+					<p><?= $row['user_firstname']; ?></p>
+				<?php endforeach ?>
+			</div>
+
 				<div class="row">
 					<form method="POST">
 						<div class="form-group">
 							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Active" />
 						</div>
 						<div class="form-group">
-							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Done" />
+							<input type="submit" class="btn btn-lg btn-success" name="btn-status" value="Done" />
 						</div>
 						<div class="form-group">
-							<input type="submit" class="btn btn-lg btn-primary" name="btn-status" value="Upcoming" />
+							<input type="submit" class="btn btn-lg btn-warning" name="btn-status" value="Upcoming" />
 						</div>
 					</form>
 				</div>
