@@ -91,7 +91,7 @@
 			<div class="project-team">
 				<h4>The Team</h4>
 				<?php foreach ($allUsers as $row): ?>
-					<p><?= $row['user_firstname']; ?></p>
+					<p><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></p>
 				<?php endforeach ?>
 			</div>
 

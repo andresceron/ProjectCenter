@@ -16,3 +16,5 @@
 	$assetsImg        = $variables->getAssetsImg();
 	$assetsJs         = $variables->getAssetsJS();
 	$assetsCss        = $variables->getAssetsCSS();
+
+	$displayAvatars   = $user->display_avatars();

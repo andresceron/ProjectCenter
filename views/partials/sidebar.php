@@ -8,13 +8,10 @@
 			<button class="pull-right">Edit info</button>	
 		</div>
 		<div class="profilePicture">
-			<?php if(false): ?>
-				<img src="<?= $assetsImg; ?>/profiles/profile-demo.jpg" alt="<?= "profile-" . $userInfo['user_firstname'] ?>">			
-			<?php else: ?>
-    			<img src="<?= $assetsImg; ?>/profiles/default-pic.png" alt="<?= "profile-" . $userInfo['user_firstname']?>">		
-    		<?php endif; ?>
+				<img src="<?= $assetsImg . "/avatars/" . $userInfo['avatar_url']; ?>" alt="<?= "profile-" . $userInfo['user_firstname'] ?>" />
     	</div>
   	</div>
+  	<?= $userInfo['avatar_url']; ?>
 	<table class="table">
 		<tr>
 			<td>Name:</td>

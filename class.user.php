@@ -6,12 +6,12 @@ class USER {
         $this->db = $DB_con;
     }
   
-    public function register ($u_fname, $u_lname, $u_email, $u_department, $u_pass){
+    public function register ($u_fname, $u_lname, $u_email, $u_department, $u_pass, $u_avatar) {
         try {
             $options = ['cost' => 12];            
             $hashed_password = password_hash($u_pass, PASSWORD_BCRYPT, $options);
 
-            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_department, user_pass) VALUES (:u_fname, :u_lname, :u_email, :u_department, :u_pass)";
+            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_department, user_pass, user_avatar) VALUES (:u_fname, :u_lname, :u_email, :u_department, :u_pass, :u_avatar)";
             $stmt = $this->db->prepare($query);    
             $result = $stmt->execute(
               array(
@@ -19,7 +19,8 @@ class USER {
                 'u_lname' => $u_lname,
                 'u_email' => $u_email,
                 'u_department' => $u_department,
-                'u_pass' => $hashed_password
+                'u_pass' => $hashed_password,
+                'u_avatar' => $u_avatar
                 ));
 
             return $result; 
@@ -63,6 +64,20 @@ class USER {
             $departmentRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $departmentRow; 
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function display_avatars() {
+        try {   
+            $query = "SELECT * FROM tbl_avatars";
+            $stmt = $this->db->prepare($query); 
+            $stmt->execute();
+            $avatarRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $avatarRow; 
 
         } catch(PDOException $e) {
             echo $e->getMessage();
@@ -164,6 +179,7 @@ class USER {
         try {
             $query = "SELECT * FROM tbl_users AS u ";
             $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
+            $query .= "LEFT JOIN tbl_avatars AS a ON u.user_avatar = a.avatar_id ";
             $query .= "WHERE user_id = ?";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($user_id));
