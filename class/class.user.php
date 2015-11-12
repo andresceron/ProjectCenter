@@ -92,6 +92,24 @@ class USER {
         }
     }
 
+    public function delete_user($user_id_edit) {
+        try{
+            $query  = "DELETE FROM tbl_users ";
+            $query .= "WHERE user_id = ?";
+
+            $stmt = $this->db->prepare($query);                     
+            $result = $stmt->execute(
+                array(
+                    $user_id_edit
+                ));       
+            
+            return $result;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function display_avatars() {
         try {   
             $query = "SELECT * FROM tbl_avatars";

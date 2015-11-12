@@ -5,11 +5,11 @@
 	if(!$user->is_loggedin()) {
 		$user->redirect('../../index.php');
 	}
-$user_id_edit = $_SESSION['user_id_edit'];	
-$editUserInfo = $user->userData($user_id_edit);
+
+	$user_id_edit = $_SESSION['user_id_edit'];	
+	$editUserInfo = $user->userData($user_id_edit);
 
 	if(isset($_POST['btn-updateUser'])) {
-
 		$update_firstname = $_POST['update_firstname'];
 		$update_lastname = $_POST['update_lastname'];
 		$update_email = $_POST['update_email'];	
@@ -20,17 +20,17 @@ $editUserInfo = $user->userData($user_id_edit);
 			$update_avatar = $_POST['update_avatar'];			
 		}
 
-	   	 if(empty($update_firstname)) {
+	   	if(empty($update_firstname)) {
 	     	$error[] = "provide a first name!"; 
-	   	 } else if(empty($update_lastname)) {
-	      	$error[] = "provide a last name!"; 
-	   	 } else if(empty($update_email)) {
-	      	$error[] = "provide email!"; 
-	   	 } else {
+	   	} else if(empty($update_lastname)) {
+	    	$error[] = "provide a last name!"; 
+	   	} else if(empty($update_email)) {
+	    	$error[] = "provide email!"; 
+	   	} else {
     		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id_edit)) {
-            	$user->redirect('edit-user.php?userUpdated');
+        		$user->redirect('edit-user.php?userUpdated');
         	}
-	  	 } 
+	  	} 
 	}
 
 	include '../partials/header.php';

@@ -1,6 +1,10 @@
 <?php
 	include_once '../../dbconfig.php';
 	require_once '../../user_id.php';
+	$proj_id = $_SESSION['proj_id'];
+	
+	$singleProjectsRow = $projects->singleProject($proj_id);
+	$allUsersProj      = $projects->allUsersProj($proj_id);
 
 	if(!$user->is_loggedin()) {
 		$user->redirect('index.php');

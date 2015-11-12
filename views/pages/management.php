@@ -9,7 +9,14 @@
     if (isset($_POST['editUser'])) {
 	    $_SESSION['user_id_edit'] = $_POST['user_id_edit'];
         $user->redirect('edit-user.php');
-    }
+
+    } else if(isset($_POST["deleteUser"])){
+    	$user_id_edit = $_POST['user_id_edit'];
+
+		if($user->delete_user($user_id_edit)) {
+			$user->redirect('management.php?userDeleted');
+		}
+	}
 
 	include '../partials/header.php';
 	include '../partials/nav.php';
@@ -40,9 +47,13 @@ if(isset($_POST['edit-user']))
 							<td>
 								<form method="POST">
 									<button type="submit" class="btn btn-sm btn-info" name="editUser">Edit</button>
-									<input type="button" class="btn btn-sm btn-warning" name="deleteUser" value="Delete">
+									<button type="submit" class="btn btn-sm btn-warning" name="deleteUser">Delete</button>
 									<input type="hidden" name="user_id_edit" value="<?= $row['user_id'] ?>">
 								</form>
+							</td>
+						<?php else: ?>
+							<td>
+								<a href="tel:5555555555">Call</a>
 							</td>
 						<?php endif; ?>
 					</tr>

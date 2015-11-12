@@ -10,12 +10,7 @@
 	$departments       = $user->department_name();
 	$displayAvatars    = $user->display_avatars();
 
-	// Single Projects ID
-	$proj_id           = $_SESSION['proj_id'];
-
 	// Projects variables
-	$singleProjectsRow = $projects->singleProject($proj_id);
-	$allUsersProj      = $projects->allUsersProj($proj_id);
 	$allProjects       = $projects->allProjects();
 	$upcomingProjects  = $projects->upcomingProjects($user_id);
 	$previousProjects  = $projects->previousProjects($user_id);
