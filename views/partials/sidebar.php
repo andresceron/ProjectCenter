@@ -17,12 +17,12 @@
 			<td><?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname'];?></td>
 		</tr>
 		<tr>
-			<td>Department:</td>
-			<td><?= $userInfo['department_name']; ?></td>
-		</tr>
-		<tr>
 			<td>E-mail:</td>
 			<td><?= $userInfo['user_email']; ?></td>
+		</tr>
+		<tr>
+			<td>Department:</td>
+			<td><?= $userInfo['department_name']; ?></td>
 		</tr>
 	</table>
 </div>

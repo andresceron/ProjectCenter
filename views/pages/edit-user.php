@@ -18,24 +18,17 @@
 			$update_avatar = $_POST['update_avatar'];			
 		}
 
-	   	// if(empty($update_firstname)) {
-	    // 	$error[] = "provide a first name!"; 
-	   	// } else if(empty($update_lastname)) {
-	    //  	$error[] = "provide a last name!"; 
-	   	// } else if(empty($update_email)) {
-	    //   	$error[] = "provide email!"; 
-	   	// } else if(filter_var($update_email, FILTER_VALIDATE_EMAIL)) {
-	    //   	$error[] = 'Please enter a valid email address!';
-	   	// } else {
+	   	 if(empty($update_firstname)) {
+	     	$error[] = "provide a first name!"; 
+	   	 } else if(empty($update_lastname)) {
+	      	$error[] = "provide a last name!"; 
+	   	 } else if(empty($update_email)) {
+	      	$error[] = "provide email!"; 
+	   	 } else {
     		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id)) {
             	$user->redirect('edit-user.php?userUpdated');
         	}
-	  	// } 
-
-	  	// echo $update_firstname;
-	  	// echo $update_lastname;
-	  	// echo $update_email;
-	  	// echo $update_avatar;
+	  	 } 
 	}
 
 	include '../partials/header.php';
@@ -45,12 +38,18 @@
 <div class="container content">
 	<div class="row">
 		<div class="col-md-12">
-		<?php if(isset($_GET['userUpdated'])): ?>
-			<div class="alert alert-success alert-fadeout">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<p>User information updated!</p>
-			</div>
-		<?php endif; ?>
+            <?php if(isset($error)) :
+        		foreach($error as $error) : ?>
+		          	<div class="alert alert-danger">
+		              	<i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
+		          	</div>
+        		<?php endforeach;
+				elseif(isset($_GET['userUpdated'])): ?>
+					<div class="alert alert-success alert-fadeout">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<p>User information updated!</p>
+					</div>
+			<?php endif; ?>
 		</div>
 		<form method="POST">
 			<div class="col-md-12">
@@ -79,12 +78,17 @@
 					    	</div><br />
 					    	<p>Choose a new avatar:</p>
 						  	<div class="radio">
-							    <?php foreach ($displayAvatars as $row): ?>
-							      <label>
-							        <img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" alt="" width="140px" class="img-thumbnail" />
-							        <input type="radio" name="update_avatar" value="<?= $row['avatar_id']; ?>">
-							      </label>
-							    <?php endforeach; ?>
+						  		<div class="row">
+						  			<?php foreach ($displayAvatars as $row): ?>
+					  				<div class="col-md-2">
+								      	<label>
+								        	<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" alt="" width="100px" class="img-thumbnail" />
+								        	<input type="radio" name="update_avatar" value="<?= $row['avatar_id']; ?>">
+								    	</label>
+							    	</div>
+							    	<?php endforeach; ?>	
+						  			
+						  		</div>
 						  	</div>
 						</div>
 						<div class="clearfix"></div><hr />

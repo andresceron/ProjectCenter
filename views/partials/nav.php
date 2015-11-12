@@ -13,7 +13,7 @@
 				<a href="home.php" class="btn btn-info navbar-btn"><i class=""></i> Back to home</a> 
 			<?php endif; ?>
 			<a href="logout.php?logout=true" class="btn btn-danger navbar-btn"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
-			<a href="settings.php" class="fa fa-cog"></a>
+			<a href="management.php" class="fa fa-cog"></a>
 		</div>
 	</div>
 </nav>
