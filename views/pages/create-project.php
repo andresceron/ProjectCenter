@@ -33,11 +33,11 @@
 			$error[] = "Please provide an start date for this project!"; 
 		} elseif (empty($proj_date_end)) {
 			$error[] = "Please provide an end date for this project!"; 
-		} elseif ($proj_date_start < $proj_date_end) {
+		} elseif ($proj_date_start > $proj_date_end) {
 			$error[] = "The end date must be set AFTER the start date";
 		} else {
 			try {
-				if($user->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk)) {
+				if($projects->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk)) {
 					$user->redirect('create-project.php?ProjCreated');
 				}
 			} catch(PDOException $e) {

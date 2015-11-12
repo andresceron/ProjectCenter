@@ -5,13 +5,12 @@
 	<div class="panel-body">
 		<div class="col-md-12">
 			<?php // @TODO: Fix button to EDIT and CREATE EDIT page and functions ?>
-			<button class="pull-right">Edit info</button>	
+			<a href="../pages/edit-user.php" class="btn btn-xs btn-info pull-right" name="editUser">Edit info</a>
 		</div>
 		<div class="profilePicture">
-				<img src="<?= $assetsImg . "/avatars/" . $userInfo['avatar_url']; ?>" alt="<?= "profile-" . $userInfo['user_firstname'] ?>" />
+			<img src="<?= $assetsImg . "/avatars/" . $userInfo['avatar_url']; ?>" alt="<?= "profile-" . $userInfo['user_firstname'] ?>" />
     	</div>
   	</div>
-  	<?= $userInfo['avatar_url']; ?>
 	<table class="table">
 		<tr>
 			<td>Name:</td>

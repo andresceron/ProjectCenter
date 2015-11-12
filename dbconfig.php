@@ -13,7 +13,9 @@ try {
      echo $e->getMessage();
 }
 
-include_once 'class.user.php';
-include_once 'class.variables.php';
+include_once 'class/class.user.php';
+include_once 'class/class.projects.php';
+include_once 'class/class.variables.php';
 $user = new USER($DB_con); 
 $variables = new VARIABLES($DB_con); 
+$projects = new PROJECTS($DB_con); 

@@ -54,33 +54,6 @@ class USER {
         }
     }
 
-    public function department_names() {
-        echo "hej";
-    }
-
-    // public function update_user ($user_firstname, $user_lastname, $user_email, $user_avatar, $user_id) {
-    //     try {
-    //         $query = "UPDATE tbl_users ";
-    //         $query .= "SET user_firstname = :user_firstname, user_lastname = :user_lastname, ";
-    //         $query .= "user_email = :user_email, user_avatar = :user_avatar "; 
-    //         $query .= "WHERE user_id = :user_id";
-    //         $stmt = $this->db->prepare($query);
-    //         $stmt->execute(
-    //             array(
-    //                 'update_firstname' => $update_firstname,
-    //                 'update_firstlast' => $update_firstlast,
-    //                 'update_email' => $update_email,
-    //                 'update_avatar' => $update_avatar,
-    //                 'user_id' => $user_id
-    //             ));
-
-    //         return true;
-
-    //     } catch(PDOException $e) {
-    //         echo $e->getMessage();
-    //     }
-    // }
-
     // @TODO: Not working
     public function department_name() {
         try {

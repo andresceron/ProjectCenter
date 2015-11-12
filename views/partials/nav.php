@@ -9,7 +9,7 @@
 	      	</a>
 	    </div>
 	    <div class="pull-right">
-	    	<?php if ($user->curPageName() != $homePage): ?>
+	    	<?php if ($variables->curPageName() != $homePage): ?>
 				<a href="home.php" class="btn btn-info navbar-btn"><i class=""></i> Back to home</a> 
 			<?php endif; ?>
 			<a href="logout.php?logout=true" class="btn btn-danger navbar-btn"><i class="glyphicon glyphicon-log-out"></i> Logout</a>

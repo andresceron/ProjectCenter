@@ -5,12 +5,6 @@
 	if(!$user->is_loggedin()) {
 		$user->redirect('index.php');
 	}
-	
-	$proj_id = $_SESSION['proj_id'];
-    
-    $singleProjectsRow = $user->singleProject($proj_id);
-
-    $allUsers = $user->allUsersProj($proj_id);
 
 	if(isset($_POST['btn-status'])) {
 		$btnStatus = $_POST['btn-status'];
@@ -23,7 +17,7 @@
 			$btnStatus = "0";
 		}
 		try {
-			if($user->updateProj($btnStatus, $proj_id)) {
+			if($projects->updateProj($btnStatus, $proj_id)) {
 				$user->redirect('project-detail.php?StatusUpdated');
 			}
 		} catch(PDOException $e) {
@@ -90,7 +84,7 @@
 			<div class="col-md-4">
 			<div class="project-team">
 				<h4>The Team</h4>
-				<?php foreach ($allUsers as $row): ?>
+				<?php foreach ($allUsersProj as $row): ?>
 					<p><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></p>
 				<?php endforeach ?>
 			</div>
