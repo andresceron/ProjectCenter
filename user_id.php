@@ -3,6 +3,7 @@
 	// Users ID
 	$user_id           = isset($_SESSION['user_session']);     	
 	// User variables 
+	$allUsers          = $user->allUsers($user_id);
 	$userInfo          = $user->userData($user_id);
 	$usertypeName      = $user->userTypeName($user_id);
 	$usertype          = $user->userType($user_id);

@@ -12,10 +12,15 @@
         $user->redirect('project-detail.php');
     }
 
+	if (isset($_POST['editUser'])) {
+		$_SESSION['user_id_edit'] = $_POST['user_id_edit'];
+		$user->redirect('edit-user.php');
+	}
+
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
-<div class="container content">
+<main class="container content">
 	<div class="row">
 		<div class="col-md-12">
 		<?php if(isset($_GET['userLoggedIn'])): ?>
@@ -172,5 +177,5 @@
 			<?php include '../partials/sidebar.php'; ?>
 		</div>
 	</div>
-</div>
+
 <?php include '../partials/footer.php'; ?>

@@ -122,6 +122,22 @@ class USER {
         return true;
     }
 
+    // Fetch ALL users
+    public function allUsers() {
+        try {
+            $query = "SELECT * FROM tbl_users AS u ";
+            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
+            $query .= "LEFT JOIN tbl_avatars AS a ON u.user_avatar = a.avatar_id ";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            $userRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $userRow;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
     // Fetch users information with database
     public function userData($user_id) {
         try {

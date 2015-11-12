@@ -5,12 +5,14 @@
 	if(!$user->is_loggedin()) {
 		$user->redirect('../../index.php');
 	}
+$user_id_edit = $_SESSION['user_id_edit'];	
+$editUserInfo = $user->userData($user_id_edit);
 
 	if(isset($_POST['btn-updateUser'])) {
 
 		$update_firstname = $_POST['update_firstname'];
 		$update_lastname = $_POST['update_lastname'];
-		$update_email = $_POST['update_email'];		
+		$update_email = $_POST['update_email'];	
 
 		if(empty($_POST['update_avatar'])) {
 			$update_avatar = $userInfo['user_avatar'];
@@ -25,7 +27,7 @@
 	   	 } else if(empty($update_email)) {
 	      	$error[] = "provide email!"; 
 	   	 } else {
-    		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id)) {
+    		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id_edit)) {
             	$user->redirect('edit-user.php?userUpdated');
         	}
 	  	 } 
@@ -56,16 +58,16 @@
 				<div class="row">
 					<div class="col-md-8">
 						<div class="form-group">
-						  <input type="text" class="form-control" name="update_firstname" placeholder="First name" value="<?= $userInfo['user_firstname'] ?>" />
+						  <input type="text" class="form-control" name="update_firstname" placeholder="First name" value="<?= $editUserInfo['user_firstname'] ?>" />
 						</div>
 						<div class="form-group">
-						  <input type="text" class="form-control" name="update_lastname" placeholder="Last name" value="<?= $userInfo['user_lastname'] ?>" />
+						  <input type="text" class="form-control" name="update_lastname" placeholder="Last name" value="<?= $editUserInfo['user_lastname'] ?>" />
 						</div>
 						<div class="form-group">
-						  <input type="email" class="form-control" name="update_email" placeholder="Email" value="<?= $userInfo['user_email'] ?>" />
+						  <input type="email" class="form-control" name="update_email" placeholder="Email" value="<?= $editUserInfo['user_email'] ?>" />
 						</div>
 						<div class="form-group">
-						  <input type="text" class="form-control" name="update_department" placeholder="Department" value="<?= $userInfo['department_name'] ?>" disabled/>
+						  <input type="text" class="form-control" name="update_department" placeholder="Department" value="<?= $editUserInfo['department_name'] ?>" disabled/>
 						</div>
 
 						<div class="form-group">
@@ -74,7 +76,7 @@
 						<div class="form-group">
 							<p><b>Current Avatar:</b></p>
 							<div class="profilePicture">
-								<img src="<?= $assetsImg . "/avatars/" . $userInfo['avatar_url']; ?>" alt="<?= "profile-" . $userInfo['user_firstname'] ?>" />
+								<img src="<?= $assetsImg . "/avatars/" . $editUserInfo['avatar_url']; ?>" alt="<?= "profile-" . $editUserInfo['user_firstname'] ?>" />
 					    	</div><br />
 					    	<p>Choose a new avatar:</p>
 						  	<div class="radio">
