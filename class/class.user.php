@@ -70,6 +70,28 @@ class USER {
         }
     }
 
+    public function update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id) {
+        try {
+            $query = "UPDATE tbl_users ";
+            $query .= "SET user_firstname = ?, user_lastname = ?, user_email = ?, user_avatar = ? ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(
+                array(
+                    $update_firstname,
+                    $update_lastname,
+                    $update_email,
+                    $update_avatar,
+                    $user_id
+                ));
+
+            return $stmt;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function display_avatars() {
         try {   
             $query = "SELECT * FROM tbl_avatars";

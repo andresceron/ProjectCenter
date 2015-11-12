@@ -6,15 +6,17 @@
 		$user->redirect('../../index.php');
 	}
 
-	include '../partials/header.php';
-	include '../partials/nav.php';
-
-
-	print_r($user->department_names());
-	die;
-
 	if(isset($_POST['btn-updateUser'])) {
 
+		$update_firstname = $_POST['update_firstname'];
+		$update_lastname = $_POST['update_lastname'];
+		$update_email = $_POST['update_email'];		
+
+		if(empty($_POST['update_avatar'])) {
+			$update_avatar = $userInfo['user_avatar'];
+		} else {
+			$update_avatar = $_POST['update_avatar'];			
+		}
 
 	   	// if(empty($update_firstname)) {
 	    // 	$error[] = "provide a first name!"; 
@@ -25,10 +27,9 @@
 	   	// } else if(filter_var($update_email, FILTER_VALIDATE_EMAIL)) {
 	    //   	$error[] = 'Please enter a valid email address!';
 	   	// } else {
-        		if($user->update_proj($user_id)) {
-                	//$user->redirect('edit-user.php?userUpdated');
-                	echo "HEJ";
-            	}
+    		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id)) {
+            	$user->redirect('edit-user.php?userUpdated');
+        	}
 	  	// } 
 
 	  	// echo $update_firstname;
@@ -36,6 +37,9 @@
 	  	// echo $update_email;
 	  	// echo $update_avatar;
 	}
+
+	include '../partials/header.php';
+	include '../partials/nav.php';
 
 ?>
 <div class="container content">
