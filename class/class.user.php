@@ -218,5 +218,21 @@ class USER {
             echo $e->getMessage();
         }
     }
+
+    public function userDepartments($department_id) {
+        try {
+            $query = "SELECT * FROM tbl_users AS u ";
+            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
+            $query .= "WHERE user_department = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($department_id));
+            $userDepartments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $userDepartments;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 ?>

@@ -14,4 +14,5 @@ $( document ).ready(function() {
 	$(".alert-fadeout").fadeTo(10000, 500).slideUp(500, function(){
     	$(".alert-fadeout").alert('close');
 	});
+
 });
