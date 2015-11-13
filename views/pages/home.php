@@ -8,8 +8,10 @@
 
     // Fetch selected PROJECT and redirect to..
     if (isset($_POST['projectDetail'])) {
-	    $_SESSION['proj_id'] = $_POST['proj_id'];
-        $user->redirect('project-detail.php');
+	    $proj_id = $_POST['proj_id'];
+	    //$_SESSION['proj_id'] = $_POST['proj_id'];
+        //$user->redirect('project-detail.php?');
+        $user->redirect('project-detail.php?showProj='.$proj_id.'');
     }
 
 	if (isset($_POST['editUser'])) {

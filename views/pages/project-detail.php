@@ -2,7 +2,7 @@
 	include_once '../../dbconfig.php';
 	require_once '../../user_id.php';
 	$proj_id = $_SESSION['proj_id'];
-	
+	$proj_id = $_GET['showProj'];
 	$singleProjectsRow = $projects->singleProject($proj_id);
 	$allUsersProj      = $projects->allUsersProj($proj_id);
 
@@ -22,7 +22,7 @@
 		}
 		try {
 			if($projects->updateProj($btnStatus, $proj_id)) {
-				$user->redirect('project-detail.php?StatusUpdated');
+				$user->redirect('project-detail.php?showProj='.$proj_id.'&StatusUpdated');
 			}
 		} catch(PDOException $e) {
 			echo $e->getMessage();
@@ -32,17 +32,23 @@
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
+
 	<div class="container content">
 		<div class="row">
 			<div class="col-md-8">
 				<?php if(isset($_GET['StatusUpdated'])) : ?>
 					<div class="alert alert-info">
 			 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Project Status changed to...
+			 				<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Done' : 'Upcoming') ); ?>
 					</div>
 				<?php endif ?>
 				<div class="panel panel-default">
 				<?= $proj_id; ?>
-					<div class="panel-heading">Project Details</div>
+					<div class="panel-heading">Project Details
+						<p> Status: 
+							<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Finished' : 'Upcoming') ); ?>
+						</p>
+					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-4">
@@ -88,9 +94,13 @@
 			<div class="col-md-4">
 			<div class="project-team">
 				<h4>The Team</h4>
-				<?php foreach ($allUsersProj as $row): ?>
-					<p><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></p>
-				<?php endforeach ?>
+				<?php if ($allUsersProj === false): ?>
+					<p>No users</p>
+				<?php else: ?>
+					<?php foreach ($allUsersProj as $row): ?>
+						<p><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></p>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 
 				<div class="row">

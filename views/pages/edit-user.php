@@ -6,6 +6,8 @@
 		$user->redirect('../../index.php');
 	}
 
+	shuffle($displayAvatars);
+
 	$user_id_edit = $_SESSION['user_id_edit'];	
 	$editUserInfo = $user->userData($user_id_edit);
 
