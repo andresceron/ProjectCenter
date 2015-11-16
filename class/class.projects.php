@@ -8,7 +8,7 @@ class PROJECTS {
 
   
     // Create a new project
-    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk) {
+    public function newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk, $proj_tasks) {
         try {
             $query = "INSERT INTO tbl_projects (proj_name, proj_desc, proj_date_start, proj_date_end) ";
             $query .= "VALUES (:proj_name, :proj_desc, :proj_date_start, :proj_date_end)";
@@ -27,7 +27,7 @@ class PROJECTS {
             if (!empty($proj_users_id)) {
                 foreach($proj_users_id as $proj_user_id) {  
                     $query2 = "INSERT INTO tbl_link(proj_id, user_id) ";
-                    $query2 .= "VALUES (?, ?) ";
+                    $query2 .= "VALUES (?, ?)";
                     $stmt2  = $this->db->prepare($query2);
                     $result = $stmt2->execute(
 	                    array(
@@ -43,6 +43,19 @@ class PROJECTS {
                     array(
                         $last_id
                     ));            
+            }
+
+            if(!empty($proj_tasks)) {
+                foreach($proj_tasks as $proj_task) {
+                    $query3 = "INSERT INTO tbl_todos (todo_task, proj_id) ";
+                    $query3 .= "VALUES (?, ?)";
+                    $stmt3 = $this->db->prepare($query3);
+                    $result = $stmt3->execute(
+                        array(
+                            $proj_task,
+                            $last_id
+                        ));
+                }
             }
 
             return true;
@@ -128,6 +141,29 @@ class PROJECTS {
         }
     }
 
+    // Fetch a specifik project
+    public function singleProjectTasks($proj_id) {
+        try {
+            $query = "SELECT * FROM tbl_todos ";
+            $query .= "WHERE proj_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($proj_id));
+            $todosList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($todosList)) {
+                return $todosList;
+            } else {
+                return false;
+            }
+
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+
+
     // Fetch all projects
     public function allProjects() {
         try {
@@ -174,6 +210,7 @@ class PROJECTS {
         try {
             $query = "SELECT * FROM tbl_link as l ";
             $query .= "LEFT JOIN tbl_users as p on l.user_id = p.user_id ";
+            $query .= "LEFT JOIN tbl_avatars as a on p.user_avatar = a.avatar_id ";
             $query .= "WHERE proj_id = ?";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array($proj_id));

@@ -6,7 +6,7 @@
 		$user->redirect('index.php');
 	}
 
-	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = "" ;
+	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = $proj_todos = "" ;
 
 	if(isset($_POST['btn-newProject'])) {
 		$proj_name 			= $_POST['txt_proj_name'];
@@ -15,12 +15,18 @@
 		$proj_date_end 		= $_POST['txt_proj_date_end'];
 		$chk				= "";  
 
-		if(!empty($POST['txt_user_id'])) {
-			$proj_users_id	= $_POST['txt_user_id'];	
+		if (!empty($_POST['txt_user_id'])) {
+			$proj_users_id = $_POST['txt_user_id'];
 		} else {
-			$proj_users_id = "";
+			$proj_users_id = isset($_POST['txt_user_id']);
 		}
- 
+
+		if (!empty($_POST['txt_proj_todo'])) {
+			$proj_tasks = $_POST['txt_proj_todo'];
+		} else {
+			$proj_tasks = isset($_POST['txt_proj_todo']);
+		}
+
 		if (empty($proj_name)) {
 			$error[] = "Please provide a project name for this project!"; 
 		} elseif(strlen($proj_name) < 7) {
@@ -37,7 +43,7 @@
 			$error[] = "The end date must be set AFTER the start date";
 		} else {
 			try {
-				if($projects->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk)) {
+				if($projects->newProject($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_users_id, $chk, $proj_tasks)) {
 					$user->redirect('create-project.php?ProjCreated');
 				}
 			} catch(PDOException $e) {
@@ -95,6 +101,13 @@
 							<div class="col-md-10 form-group">
 								<input type="date" class="form-control" name="txt_proj_date_end" placeholder="Project End date" value="<?php if(isset($error)){echo $proj_date_end;}?>"/>
 							</div>		
+						</div>
+						<div class="step-todo">
+							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
+							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
+							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
+							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
+							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
 						</div>
 						<div class="step-team">
 							<h4>Select your Team:</h4>

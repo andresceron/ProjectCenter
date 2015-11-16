@@ -4,6 +4,7 @@
 	//$proj_id = $_SESSION['proj_id'];
 	$proj_id = $_GET['showProj'];
 	$singleProjectsRow = $projects->singleProject($proj_id);
+	$singleProjectsTasks = $projects->singleProjectTasks($proj_id);
 	$allUsersProj      = $projects->allUsersProj($proj_id);
 
 	if(!$user->is_loggedin()) {
@@ -113,20 +114,28 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-			<div class="project-team">
-				<h4>The Team</h4>
-				<?php if ($allUsersProj === false): ?>
-					<p>No users</p>
-				<?php else: foreach ($allUsersProj as $row): ?>
-					<div>
-						<img src="#" />
-						<span><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></span>
-					</div>
+				<div class="project-team">
+					<h4>The Team</h4>
+					<?php if ($allUsersProj === false): ?>
+						<p>No users</p>
+					<?php else: foreach ($allUsersProj as $row): ?>
+						<div>
+							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" width="100px" />
+							<span><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></span>
+						</div>
 
-				<?php endforeach; endif; ?>
-			</div>
+					<?php endforeach; endif; ?>
+				</div>
+				<br/>
+				<div class="tasklist">
+					<h4>Task Lists</h4>
+					<?php if ($singleProjectsTasks === false): ?>
+						<p>No tasks</p>
+					<?php else: foreach ($singleProjectsTasks as $row): ?>
+							* <span><?= $row['todo_task']; ?></span>
 
-				
+					<?php endforeach; endif; ?>
+				</div>
 
 			</div>
 		</div>
