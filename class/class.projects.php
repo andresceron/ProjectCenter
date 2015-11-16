@@ -53,7 +53,50 @@ class PROJECTS {
     } 
 
     // Setting the Status of the Project
-    public function updateProj($btnStatus, $proj_id) {
+    public function updateProj($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_id) {
+        try {
+            $query = "UPDATE tbl_projects ";
+            $query .= "SET proj_name = ?, "; 
+            $query .= "proj_desc = ?, "; 
+            $query .= "proj_date_start = ?, "; 
+            $query .= "proj_date_end = ? "; 
+            $query .= "WHERE proj_id = ?";
+            
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(
+                array(
+                    $proj_name,
+                    $proj_desc,
+                    $proj_date_start,
+                    $proj_date_end,
+                    $proj_id
+                ));
+
+            return true;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Deleting the project
+    public function deleteProj($proj_id) {
+        try{
+            $query  = "DELETE FROM tbl_projects ";
+            $query .= "WHERE proj_id = ?";
+
+            $stmt = $this->db->prepare($query);                     
+            $result = $stmt->execute(array($proj_id));       
+            
+            return $result;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Setting the Status of the Project
+    public function updateProjStatus($btnStatus, $proj_id) {
         try {
             $query = "UPDATE tbl_projects SET proj_state = ? WHERE proj_id = ?";
             $stmt = $this->db->prepare($query);
