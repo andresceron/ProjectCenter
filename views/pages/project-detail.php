@@ -2,10 +2,13 @@
 	include_once '../../dbconfig.php';
 	require_once '../../user_id.php';
 	//$proj_id = $_SESSION['proj_id'];
-	$proj_id = $_GET['showProj'];
-	$singleProjectsRow = $projects->singleProject($proj_id);
+	$proj_id             = $_GET['showProj'];
+	$singleProjectsRow   = $projects->singleProject($proj_id);
 	$singleProjectsTasks = $projects->singleProjectTasks($proj_id);
-	$allUsersProj      = $projects->allUsersProj($proj_id);
+	$allUsersProj        = $projects->allUsersProj($proj_id);
+
+	$tasksUnchecked      = $projects->tasksUnchecked($proj_id);
+	$tasksChecked        = $projects->tasksChecked($proj_id);
 
 	if(!$user->is_loggedin()) {
 		$user->redirect('http://localhost:8888/projectCenter/index.php');
@@ -30,6 +33,11 @@
 		}
 	} elseif (isset($_POST['btn-editProj'])) {
 		$user->redirect('edit-project.php?projId='.$proj_id.'');
+
+	} elseif (isset($_POST['btn-CheckTasks'])) {
+		$task_id = $_POST['proj_tasks'];
+		$projects->checkTasks($task_id);
+		$user->redirect('project-detail.php?showProj='.$proj_id.'');
 	}
 
 	include '../partials/header.php';
@@ -121,13 +129,32 @@
 				</div>
 				<br/>
 				<div class="tasklist">
-					<h4>Task Lists</h4>
-					<?php if ($singleProjectsTasks === false): ?>
-						<p>No tasks</p>
-					<?php else: foreach ($singleProjectsTasks as $row): ?>
-							<p>* <?= $row['todo_task']; ?></p>
-
-					<?php endforeach; endif; ?>
+					<form method="POST">
+						<h4>Task Lists</h4>
+						<?php if ($singleProjectsTasks === false): ?>
+							<p>No tasks</p>
+						<?php else: ?>
+							<?php if (!empty($tasksUnchecked)): ?>
+								<?php foreach ($tasksUnchecked as $row): ?>
+									<div class="checkbox">
+									 	<label>
+									    	<input type="checkbox" name="proj_tasks[]" value="<?= $row['todo_id']; ?>"><?= $row['todo_task']; ?>
+									  	</label>
+									</div>	
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<?php if(!empty($tasksChecked)): ?>
+								<?php foreach ($tasksChecked as $row): ?>
+									<div class="checkbox">
+									 	<label>
+									    	<input type="checkbox" checked disabled><?= $row['todo_task']; ?>
+									  	</label>
+									</div>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						<button type="submit" name="btn-CheckTasks" class="btn btn-md btn-info">Update tasks</button>
+					<?php endif; ?>
+					</form>
 				</div>
 
 			</div>

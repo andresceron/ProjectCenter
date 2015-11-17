@@ -141,29 +141,6 @@ class PROJECTS {
         }
     }
 
-    // Fetch a specifik project
-    public function singleProjectTasks($proj_id) {
-        try {
-            $query = "SELECT * FROM tbl_todos ";
-            $query .= "WHERE proj_id = ?";
-            $stmt = $this->db->prepare($query);
-            $stmt->execute(array($proj_id));
-            $todosList = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if(!empty($todosList)) {
-                return $todosList;
-            } else {
-                return false;
-            }
-
-
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-
-
     // Fetch all projects
     public function allProjects() {
         try {
@@ -321,6 +298,87 @@ class PROJECTS {
             echo $e->getMessage();
         }
     }
+
+    // Fetch tasks for the project
+    public function singleProjectTasks($proj_id) {
+        try {
+            $query = "SELECT * FROM tbl_todos ";
+            $query .= "WHERE proj_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($proj_id));
+            $todosList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!empty($todosList)) {
+                return $todosList;
+            } else {
+                return false;
+            }
+
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Tasks that are unchecked
+    public function tasksUnchecked($proj_id) {
+        try {
+            $query = "SELECT * FROM tbl_todos ";
+            $query .= "WHERE proj_id = ? AND todo_state = 0"; 
+            $stmt  = $this->db->prepare($query);
+            $stmt->execute(array($proj_id));
+            $tasksUnchecked = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!empty($tasksUnchecked)) {
+               return $tasksUnchecked;
+            } else {
+                return false;
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // Tasks that are checked
+    public function tasksChecked($proj_id) {
+        try {
+            $query = "SELECT * FROM tbl_todos ";
+            $query .= "WHERE proj_id = ? AND todo_state = 1"; 
+            $stmt  = $this->db->prepare($query);
+            $stmt->execute(array($proj_id));
+            $tasksChecked = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!empty($tasksChecked)) {
+               return $tasksChecked;
+            } else {
+                return false;
+            }
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    //TODO !!! CHECKED TASKS
+    public function checkTasks($task_id) {
+        try {
+            foreach ($task_id as $task_id) {
+                $query = "UPDATE tbl_todos ";
+                $query .= "SET todo_state = 1 "; 
+                $query .= "WHERE todo_id = ?"; 
+                $stmt  = $this->db->prepare($query);
+                $result = $stmt->execute(array($task_id)); 
+            }
+            
+
+            return true;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     // Deleting task from the project
     public function delTasks($del_task) {
         try{
@@ -328,6 +386,7 @@ class PROJECTS {
             $query .= "WHERE todo_id = ?";
             $stmt  = $this->db->prepare($query);                   
             $result = $stmt->execute(array($del_task));       
+            
             return $result;
 
         } catch(PDOException $e) {
