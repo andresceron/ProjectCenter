@@ -174,6 +174,20 @@ class USER {
         }
     }
 
+    public function simpleData($get_id) {
+        try {
+            $query = "SELECT user_firstname FROM tbl_users ";
+            $query .= "WHERE user_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute(array($get_id));
+            $userRow = $stmt->fetch(PDO::FETCH_ASSOC); 
+
+            return $userRow;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     // Naming the user/admin/etc...
     public function usertype($user_id) {
         try {

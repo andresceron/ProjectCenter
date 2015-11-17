@@ -3,7 +3,7 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('../../index.php');
+		$user->redirect('http://localhost:8888/projectCenter/index.php');
 	}
 
     if (isset($_POST['editUser'])) {

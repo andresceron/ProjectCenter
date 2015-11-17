@@ -2,7 +2,7 @@
     require_once 'dbconfig.php';
     
     if(!empty($user->is_loggedin())) {
-        $user->redirect('views/pages/home.php');
+        $user->redirect('http://localhost:8888/projectCenter/views/pages/home.php');
     }
 
     if(isset($_POST['btn-login'])) {

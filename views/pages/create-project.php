@@ -3,7 +3,7 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('index.php');
+		$user->redirect('http://localhost:8888/projectCenter/index.php');
 	}
 
 	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = $proj_todos = "" ;
@@ -117,7 +117,7 @@
 								    	<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>"><?= $row['user_firstname'] . " | " . $row['department_name']; ?>
 								  	</label>
 								</div>	
-							<?php endforeach ?>
+							<?php endforeach; ?>
 						</div>
 						<div class="step-create">
 							<div class="form-group col-md-12">

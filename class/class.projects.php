@@ -293,7 +293,63 @@ class PROJECTS {
         }
     }
 
+    // Deleting member from the project
+    public function deleteMember($proj_id, $team_member) {
+        try{
+            $query  = "DELETE FROM tbl_link ";
+            $query .= "WHERE proj_id = ? AND user_id = ?";
 
+            $stmt = $this->db->prepare($query);                     
+            $result = $stmt->execute(array($proj_id, $team_member));       
+            
+            return $result;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    // Adding tasks to the project
+    public function addTasks($new_task, $proj_id) {
+        try{
+            $query  = "INSERT INTO tbl_todos(todo_task, proj_id) ";
+            $query .= "VALUES (?, ?)";
+            $stmt  = $this->db->prepare($query);                   
+            $result = $stmt->execute(array($new_task, $proj_id));       
+            return $result;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    // Deleting task from the project
+    public function delTasks($del_task) {
+        try{
+            $query  = "DELETE FROM tbl_todos ";
+            $query .= "WHERE todo_id = ?";
+            $stmt  = $this->db->prepare($query);                   
+            $result = $stmt->execute(array($del_task));       
+            return $result;
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    // // Adding member to the project @TODO
+    // public function addMember($proj_id, $team_member) {
+    //     try{
+    //         $query  = "INSERT INTO tbl_link ";
+    //         $query .= "(proj_id, user_id) ";
+    //         $query .= "VALUES (?, ?)";
+    //         $stmt = $this->db->prepare($query);                     
+    //         $result = $stmt->execute(array($proj_id, $team_member));       
+            
+    //         return $result;
+
+    //     } catch(PDOException $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
 
 
 }

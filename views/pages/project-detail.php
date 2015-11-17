@@ -8,7 +8,7 @@
 	$allUsersProj      = $projects->allUsersProj($proj_id);
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('index.php');
+		$user->redirect('http://localhost:8888/projectCenter/index.php');
 	}
 
 	if(isset($_POST['btn-status'])) {
@@ -85,14 +85,7 @@
 							<div class="col-md-8">
 								<?= $singleProjectsRow['proj_date_end']; ?>
 							</div>
-							<br><hr>
-							<div class="col-md-4">
-								Departments:
-							</div>
-							<div class="col-md-8">
-								<?= "@TODO" ?>
-							</div>
-							<br><hr>
+							<br>
 						</div>
 					</div>
 				</div>
@@ -119,10 +112,10 @@
 					<?php if ($allUsersProj === false): ?>
 						<p>No users</p>
 					<?php else: foreach ($allUsersProj as $row): ?>
-						<div>
-							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" width="100px" />
+						<div class="text-left">
+							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" width="50px" />
 							<span><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></span>
-						</div>
+						</div><br/>
 
 					<?php endforeach; endif; ?>
 				</div>
@@ -132,7 +125,7 @@
 					<?php if ($singleProjectsTasks === false): ?>
 						<p>No tasks</p>
 					<?php else: foreach ($singleProjectsTasks as $row): ?>
-							* <span><?= $row['todo_task']; ?></span>
+							<p>* <?= $row['todo_task']; ?></p>
 
 					<?php endforeach; endif; ?>
 				</div>
