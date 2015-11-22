@@ -166,8 +166,13 @@
 							foreach ($userProjects as $row): ?>	
 								<form method="post" action="home.php">
 									<button name="projectDetail" class="btn btn-full">
-										<p class="mb0"><?= $row['proj_name']; ?></p>	
-										<span><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
+										<div class="pull-left title">
+											<p class="mb5 text-left ellipsis"><?= $row['proj_name']; ?></p>	
+											<span class="dblock text-left ellipsis"><?= $row['proj_date_start'] . " - " . $row['proj_date_end'] ?></span>
+										</div>
+										<div class="pull-right">
+											<i class="fa fa-chevron-circle-right pt10"></i>
+										</div>
 										<input type="hidden" name="proj_id" value="<?= $row['proj_id'] ?>">
 									</button>
 								</form>

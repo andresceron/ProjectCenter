@@ -35,13 +35,14 @@
 		$user->redirect('edit-project.php?projId='.$proj_id.'');
 
 	} elseif (isset($_POST['btn-CheckTasks'])) {
+
 		if(isset($_POST['proj_tasks'])) {
 			$task_id = $_POST['proj_tasks'];
+			$projects->checkTasks($task_id);
+			$user->redirect('project-detail.php?showProj='.$proj_id.'&TasksUpdated');
 		} else {
-			$task_id = "";
+			$user->redirect('project-detail.php?showProj='.$proj_id.'&NoTasksUpdated');
 		}
-		$projects->checkTasks($task_id);
-		$user->redirect('project-detail.php?showProj='.$proj_id.'&TasksUpdated');
 	}
 
 	include '../partials/header.php';
@@ -61,17 +62,26 @@
 					Tasks updated successfully!
 				</div>
 			</div>
+		<?php elseif(isset($_GET['NoTasksUpdated'])): ?>
+			<div class="row">
+				<div class="alert alert-danger alert-fadeout mb0 col-xs-12">
+					<a href="#" class="close" data-dismiss="alert">&times;</a>
+					No tasks selected!
+				</div>
+			</div>
 		<?php endif; ?>
 		<div class="panel mb0 row">
 			<div class="panel-heading col-xs-12">
 				<h5 class="panel-title text-left">
 					Project Details
 				</h5>
-				<form method="POST" class="inline pull-right">
-					<button type="submit" class="btn btn-transparent btn-edit" name="btn-editProj" value="Edit">
-						<i class="fa fa-pencil"></i>
-					</button>
-				</form>
+				<?php if($usertype == 1): ?>
+					<form method="POST" class="inline pull-right">
+						<button type="submit" class="btn btn-transparent btn-edit" name="btn-editProj" value="Edit">
+							<i class="fa fa-pencil"></i>
+						</button>
+					</form>
+				<?php endif; ?>
 			</div>
 			<div class="panel-heading subheading col-xs-12">
 				<p class="panel-title subtitle text-left">
