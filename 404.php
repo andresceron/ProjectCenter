@@ -1,5 +1,4 @@
-<?php // basic 404 error pageheader('HTTP/1.1 404 Not Found');header('Status: 404 Not Found'); 
-?>
+<?php // basic 404 error pageheader('HTTP/1.1 404 Not Found');header('Status: 404 Not Found'); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,7 +9,7 @@
 		<h1>Page not found</h1>
 		<p>Sorry, we cannot find that page.</p>
 		<p>
-			<a href="/">Please return to the home page&hellip;</a>
+			<a href="index.php">Please return to the home page&hellip;</a>
 		</p>
 	</body>
 </html>

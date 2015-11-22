@@ -16,6 +16,7 @@ try {
 include 'class/class.user.php';
 include 'class/class.projects.php';
 include 'class/class.variables.php';
+
 $user = new USER($DB_con); 
 $variables = new VARIABLES($DB_con); 
 $projects = new PROJECTS($DB_con); 

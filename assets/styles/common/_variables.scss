@@ -1,0 +1,44 @@
+//colors
+$brand-primary: #AEAEAE;
+$white: #fff;
+$light-red: #C0392B;
+
+@mixin no-gutter-margin {
+  margin-left:  0;
+  margin-right: 0;
+}
+
+@mixin no-gutter-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@mixin col-centered {
+  display:inline-block;
+  float:none!important;
+}
+
+@mixin transitions($property, $duration, $effect) {
+  transition: $property $duration $effect;
+}
+
+$pos: ("t": top, "r": right, "b": bottom, "l": left);
+$size-gap: 0;
+
+@for $i from 0 through 15 {
+  $size-gap: $size-gap + 5;
+  @each $var, $vars in $pos {
+    .m#{$var}#{$size-gap}{
+        margin-#{$vars}: $size-gap +px;
+    }
+  }
+  @each $var, $vars in $pos {
+    .p#{$var}#{$size-gap}{
+      padding-#{$vars}: $size-gap +px;
+    }
+  }
+}
+
+.mb0 {
+	margin-bottom: 0;
+}

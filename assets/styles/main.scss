@@ -1,0 +1,15 @@
+// Bootstrap-SASS
+@import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap'; 
+// @import '../../bower_components/bootstrap-4/bootstrap.scss'; 
+@import '../../bower_components/font-awesome-4.4.0/scss/font-awesome.scss';
+
+// The rest of the sass files
+@import 'common/_colors';
+@import 'common/_variables';
+@import 'common/_global';
+@import 'common/_panels';
+@import 'layouts/_login';
+@import 'layouts/_header';
+@import 'layouts/_nav';
+@import 'layouts/_home';
+@import 'layouts/_footer';

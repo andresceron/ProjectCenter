@@ -1,0 +1,38 @@
+// Panel
+.panel {
+  border: 0;
+  background-color: $alt-lgrey;
+  // border-bottom: 1px solid $alt-lgrey;
+  .panel-heading {
+    background-color: $third-grey;
+    border-radius: 0;
+    h5 {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .indicator {
+      color: $primary-green;
+    }
+    .panel-title {
+      color: white;
+      text-transform: uppercase;
+      span {
+        font-size: 12px;
+      }
+    }
+    &.subheading {
+      background-color: $alt-lgrey;
+      border-bottom: 1px solid $alt-lgrey;
+      .panel-title {
+        &.subtitle {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.panel-content {
+  background-color: $primary-white;
+  color: $alt-grey;
+}

@@ -1,0 +1,40 @@
+nav {
+	background-color: $primary-green;
+	.navbar-header {
+		a.navbar-brand {
+			label {
+				color: $alt-grey;
+			}
+		}
+		.navbar-toggle {
+			i {
+				font-size: 25px;
+			}
+		}
+	
+	}
+	.slide-menu {
+	    display: none;
+	    color: blue;
+	    width: 85%;
+	    position: absolute;
+	    right: -1px;
+	    z-index: 1000;
+	}
+	
+	// .fa-cog {
+	// 	font-size: 24px;
+	// 	vertical-align: middle;
+	// 	color: #000000;
+	// 	text-decoration: none;
+	// 	width: 30px;
+	// 	text-align: center;
+	// 	:hover {
+	// 		color: #b1b1b1;
+	// 	}		
+	// }
+}
+
+.navbar {
+		margin-bottom: 0;
+	}

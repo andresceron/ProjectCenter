@@ -103,11 +103,7 @@
 							</div>		
 						</div>
 						<div class="step-todo">
-							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
-							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
-							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
-							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
-							<input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo's...">
+						Todo's: <button class="btn btn-xs btn-success add-task-btn">+</button>
 						</div>
 						<div class="step-team">
 							<h4>Select your Team:</h4>

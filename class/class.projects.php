@@ -363,16 +363,18 @@ class PROJECTS {
     //TODO !!! CHECKED TASKS
     public function checkTasks($task_id) {
         try {
-            foreach ($task_id as $task_id) {
-                $query = "UPDATE tbl_todos ";
-                $query .= "SET todo_state = 1 "; 
-                $query .= "WHERE todo_id = ?"; 
-                $stmt  = $this->db->prepare($query);
-                $result = $stmt->execute(array($task_id)); 
-            }
-            
 
+            if (!empty($task_id)) {
+                foreach ($task_id as $task_id) {
+                    $query = "UPDATE tbl_todos ";
+                    $query .= "SET todo_state = 1 "; 
+                    $query .= "WHERE todo_id = ?"; 
+                    $stmt  = $this->db->prepare($query);
+                    $result = $stmt->execute(array($task_id)); 
+                }
+            }
             return true;
+
 
         } catch(PDOException $e) {
             echo $e->getMessage();

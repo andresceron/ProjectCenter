@@ -1,0 +1,76 @@
+// LOGIN
+.login {
+	width: 260px;
+	margin: 50px auto 0;
+	h4 {
+		color: $alt-lgrey;
+		text-transform: uppercase;
+	}
+	.login-logo {
+		max-width: 50%;
+	}
+	.input-group-addon {
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid $alt-lgrey;
+		border-radius: 0;
+		min-width: 45px;
+		i {
+			font-size: 20px;
+		}
+	}
+	.form-control, &:focus {
+		background-color: transparent;
+		border: none;
+		border-bottom: 1px solid $alt-lgrey;
+		border-radius: 0;
+		outline: 0;
+		box-shadow: none;
+		color: $light-grey;
+	}
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+	    -webkit-box-shadow: 0 0 0px 1000px $bg-grey inset;
+	    -webkit-text-fill-color: $alt-lgrey;
+	}
+
+	.btn-login {
+		background-color: rgba(255, 255, 255, 0.1);
+		padding: 10px 16px;
+	    font-size: 18px;
+	    line-height: 1.33333;
+        border-radius: 2px;
+    	border: none;
+    	color: $alt-lgrey;
+    	&:hover {
+		    background-color: $primary-green;
+		    color: white;
+		}
+	}
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) { 
+	.login {
+		width: 40%;
+	}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) { 
+	.login {
+		width: 35%;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) { 
+	.login {
+		width: 30%;
+	}
+}
+
+
