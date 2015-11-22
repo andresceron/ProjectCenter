@@ -45,7 +45,7 @@
 		} else {
 			try {
 				if($projects->updateProj($proj_name, $proj_desc, $proj_date_start, $proj_date_end, $proj_id)) {
-					$user->redirect('project-detail.php?showProj='.$proj_id.'&ProjectUpdated');
+					$user->redirect('edit-project.php?projId='.$proj_id.'&ProjectUpdated');
 				}
 			} catch(PDOException $e) {
 				echo $e->getMessage();
@@ -76,146 +76,191 @@
 		}
 	}
 
-
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
 <form method="POST">
-	<div class="container content">
-		<div class="row">
-			<div class="col-md-8">
+	<div class="container-fluid edit-proj">
 			<?php if(isset($error)) { foreach($error as $error) { ?>
-				<div class="alert alert-danger">
-					<i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
+			<div class="row">
+				<div class="alert alert-danger col-xs-12">
+					<i class="fa fa-explamation"></i> &nbsp; <?php echo $error; ?>
 				</div>
+			</div>
 			<?php }} ?>
-			</div>
-			<div class="col-md-8">
-				<!-- <form method="POST"> -->
-					<?php if(isset($_GET['StatusUpdated'])) : ?>
-						<div class="alert alert-info">
-				 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Project Status changed to...
-				 				<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Done' : 'Upcoming') ); ?>
-						</div>
-					<?php endif; ?>
-					<div class="panel panel-default">
-					<?= $proj_id; ?>
-						<div class="panel-heading">Project Details
-							<p> Status: 
-								<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Finished' : 'Upcoming') ); ?>
-							</p>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-4">
-									<label>Project name:</label>
-								</div>
-								<div class="col-md-8">
-									<input type="text" name="proj_name" value="<?= $singleProjectsRow['proj_name']; ?>" />
-								</div>
-								<br><hr>
-								<div class="col-md-4">
-									<label>Project description:</label>
-								</div>
-								<div class="col-md-8">
-									<input type="text" name="proj_desc" value="<?= $singleProjectsRow['proj_desc']; ?>" />
-								</div>
-								<br><hr>
-								<div class="col-md-4">
-									<label>Project Start date:</label>
-								</div>
-								<div class="col-md-8">
-									<input type="date" name="proj_date_start" value="<?= $singleProjectsRow['proj_date_start']; ?>" />
-								</div>
-								<br><hr>
-								<div class="col-md-4">
-									<label>Project End date:</label>
-								</div>
-								<div class="col-md-8">
-									<input type="date" name="proj_date_end" value="<?= $singleProjectsRow['proj_date_end']; ?>" />
-								</div>
-								<br>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<input type="submit" class="btn btn-md btn-info" name="btn-updateProj" value="Update Project"/>
-						</div>
-						<div class="col-md-3">
-							<input type="submit" class="btn btn-md btn-danger" name="btn-deleteProj" value="Delete Project"/>
-						</div>
-					</div>
-				<!-- </form> -->
-			</div>
-			<!-- <form method="POST"> -->
-			<div class="col-md-4">
+		<!-- <form method="POST"> -->
+			<?php if(isset($_GET['ProjectUpdated'])) : ?>
 				<div class="row">
-					<div class="col-md-12">
-						<?php if(isset($_GET['newTaskAdded'])): ?>
-							<div class="alert alert-info">
-					 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; New task added to project!
-							</div>
-						<?php elseif(isset($_GET['teamMemberDeleted'])): ?>
-							<div class="alert alert-info">
-					 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; <?= $getData['user_firstname']; ?> Removed from Project
-							</div>
-						<?php elseif(isset($_GET['deletedTask'])): ?>
-							<div class="alert alert-info">
-					 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Task was deleted from project!
-							</div>
-						<?php endif; ?>
+					<div class="alert alert-info col-xs-12">
+						<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+			 			Project Updated. <a href="project-detail.php?showProj=<?= $proj_id ?>" >Back to project</a>
+					</div>
+				</div>	
+			<?php elseif(isset($_GET['newTaskAdded'])): ?>
+			<div class="row">
+				<div class="alert alert-info col-xs-12">
+					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+		 			<i class="glyphicon glyphicon-log-in"></i> New task added to project!
+				</div>
+			</div>	
+			<?php elseif(isset($_GET['teamMemberDeleted'])): ?>
+			<div class="row">
+				<div class="alert alert-info col-xs-12">
+					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+		 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; <?= $getData['user_firstname']; ?> Removed from Project
+				</div>
+			</div>
+			<?php elseif(isset($_GET['deletedTask'])): ?>
+			<div class="row">
+				<div class="alert alert-info co-xs-12">
+					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+		 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Task was deleted from project!
+				</div>
+			</div>
+			<?php endif; ?>
+		<div class="panel mb0 row">
+			<div class="panel-heading col-xs-12">
+				<h5 class="panel-title text-left">
+					Edit Project
+				</h5>
+			</div>
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Project Name
+				</p>
+			</div>
+		</div>
+		<div class="panel-content row">
+			<div class="input-group col-xs-12">
+			  <input type="text" name="proj_name" value="<?= $singleProjectsRow['proj_name']; ?>" class="form-control" />
+			</div>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Project Description
+				</p>
+			</div>
+		</div>
+		<div class="panel-content row">
+			<div class="input-group col-xs-12">
+				<textarea name="proj_desc" class="form-control"><?= $singleProjectsRow['proj_desc']; ?></textarea>
+			</div>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Date
+				</p>
+			</div>
+		</div>
+		<div class="panel-content row">
+			<div class="col-xs-6 text-center border-right date">
+				<input type="date" name="proj_date_start" value="<?= $singleProjectsRow['proj_date_start']; ?>" class="form-control"/>
+			</div>
+			<div class="col-xs-6 text-center date">
+				<input type="date" name="proj_date_end" value="<?= $singleProjectsRow['proj_date_end']; ?>" class="form-control" />
+			</div>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Project Actions
+				</p>
+			</div>
+		</div>
+		<div class="panel-content status border-bottom row">
+			<form method="POST">
+				<div class="col-xs-6">
+					<button type="submit" class="btn btn-full-multi btn-info" name="btn-updateProj" value="Update Project">Update Project</button>
+				</div>
+				<div class="col-xs-6">
+					<button type="submit" class="btn btn-full-multi btn-danger" name="btn-deleteProj" value="Delete Project">Delete Project</button>
+				</div>
+			</form>
+		</div>
+
+
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					The Team
+				</p>
+			</div>
+		</div>
+		<div class="panel-content project-team row">
+			<?php if ($allUsersProj === false): ?>
+				<div class="col-xs-12">
+					<p class="mt10">No team assigned</p>
+				</div>
+				<?php else: foreach ($allUsersProj as $row): ?>
+				<div class="col-xs-12 pt10 pb10 border-bottom">
+					<div class="row">
+						<div class="col-xs-3 profile">
+							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" />
+						</div>
+						<div class="col-xs-7">
+							<p class="mt10 ellipsis"><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></p class="mt10">
+						</div>
+						<div class="col-xs-2">
+							<input type="hidden" name="del_team_member" value="<?= $row['user_id']; ?>"/>
+							<button type="submit" name="btn-delMember" class="btn btn-xs btn-danger btn-circle mt10"><i class="fa fa-minus"></i></button>
+						</div>
 					</div>
 				</div>
-				<div class="project-team">
-					<h4>The Team</h4>
-					<?php if ($allUsersProj === false): ?>
-						<p>No users</p>
-					<?php else: foreach ($allUsersProj as $row): ?>
-						
-							<div class="row">
-								<div class="col-md-10 text-left">
-									<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" width="50px" />
-									<span><?= $row['user_firstname'] . " " . $row['user_lastname']; ?></span>
-								</div>
-								<div class="col-md-2">
-									<input type="hidden" name="del_team_member" value="<?= $row['user_id']; ?>"/>
-									<button type="submit" name="btn-delMember" class="btn btn-xs btn-danger">Delete</button>
-								</div>
-							</div><br/>
-					<?php endforeach; endif; ?>
+			<?php endforeach; endif; ?>
+		</div>
+
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Tasks
+				</p>
+			</div>
+		</div>
+		<div class="panel-content tasklist row">
+			<?php if ($singleProjectsTasks === false): ?>
+				<div class="col-xs-12">
+					<p class="mt10">No tasks assigned</p>
 				</div>
-				<div class="project-tasks">
-					<h4>The Tasks</h4>
-					<div class="row">
-					<?php if ($singleProjectsTasks === false): ?>
-						<p>No tasks</p>
-					<?php else: foreach ($singleProjectsTasks as $row): ?>
-						<!-- <form method="POST"> -->
-							<div class="col-md-10">
+			<?php else: ?>
+				<div class="col-xs-12">
+					<?php foreach ($singleProjectsTasks as $row): ?>
+						<div class="row pt10 pb10 border-bottom">
+							<div class="col-xs-10">
 								<p><?= $row['todo_task']; ?></p>
 							</div>
-							<div class="col-md-2">
+							<div class="col-xs-2">
 								<input type="hidden" name="del_task" value="<?= $row['todo_id']; ?>">
-								<button type="submit" name="btn-delTask" class="btn btn-xs btn-danger">Delete</button>
-							</div>		
+								<button type="submit" name="btn-delTask" class="btn btn-xs btn-danger btn-circle"><i class="fa fa-minus"></i></button>
+							</div>	
+						</div>
+						<!-- <form method="POST"> -->
 						<!-- </form> -->
-					<?php endforeach; endif; ?>
-					</div>
-					<!-- <form method="POST"> -->
-						<div class="row">
-							<div class="col-md-10 text-left">
-								<input type="text" name="add_new_task" class="form-control" placeholder="Add new task to this project" />	
-							</div>
-							<div class="col-md-2">
-								<button type="submit" name="btn-addTask" class="btn btn-xs btn-success">Add</button>
-							</div>
-						</div>	
-					<!-- </form> -->
+					<?php endforeach; ?>
 				</div>
-			</div>
-			<!-- </form> -->
+			<?php endif; ?>
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-xs-10 p0">
+						<input type="text" name="add_new_task" class="form-control" placeholder="Add new task to this project" />	
+					</div>
+					<div class="col-xs-2 mt15">
+						<button type="submit" name="btn-addTask" class="btn btn-xs btn-success btn-circle"><i class="fa fa-plus"></i> </button>
+					</div>
+				</div>
+			</div>		
 		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="project-detail.php?showProj=<?= $proj_id ?>" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-chevron-left pull-left"></i> Back to project info</a>	
+			</div>
+			<div class="col-xs-12">
+				<a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+			</div>
+		</div>			
 	</div>
 </form>
 <?php include '../partials/footer.php'; ?>

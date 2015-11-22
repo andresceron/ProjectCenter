@@ -73,13 +73,16 @@ h4, h5 {
 .border-bottom {
   border-bottom: 1px solid $alt-lgrey;
 }
+.border-top {
+  border-top: 1px solid $alt-lgrey;
+}
 
 .inline {
   display: inline-block;
 }
 
 .status {
-  .col-xs-4 {
+  .col-xs-4, .col-xs-6 {
     padding: 0;
   }
 }
@@ -95,4 +98,14 @@ h4, h5 {
     max-width: 40px;
 }
 
+.input-group {
+  display: table;
+}
 
+.p0 {
+  padding: 0;
+}
+
+.alert {
+  margin-bottom: 0;
+}

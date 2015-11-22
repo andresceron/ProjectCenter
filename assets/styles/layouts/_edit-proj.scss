@@ -1,0 +1,32 @@
+// EDIT PROJ
+
+.edit-proj {
+	.panel {
+		.panel-heading {
+			i.fa-pencil {
+				color: $primary-white;
+			}
+		}	
+	}
+	.panel-content {
+		 input {
+			height: 50px;
+		}
+		textarea {
+			height: 150px;
+			resize: none;
+		}
+		.date {
+			padding-left: 0;
+			padding-right: 0;
+			input[type="date"] {
+				
+			}
+		}
+		.project-team {
+			button {
+				color: $primary-white;
+			}
+		}
+	}
+}

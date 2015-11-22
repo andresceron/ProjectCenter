@@ -6,10 +6,13 @@
 // The rest of the sass files
 @import 'common/_colors';
 @import 'common/_variables';
+@import 'common/_buttons';
 @import 'common/_global';
 @import 'common/_panels';
 @import 'layouts/_login';
 @import 'layouts/_header';
 @import 'layouts/_nav';
 @import 'layouts/_home';
+@import 'layouts/_project-detail';
+@import 'layouts/_edit-proj';
 @import 'layouts/_footer';

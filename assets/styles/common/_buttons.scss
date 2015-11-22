@@ -19,6 +19,9 @@
   background-color: transparent;
   border: 1px solid white;
   color: white;
+  &:hover {
+    border: 1px solid #cdcdcd;
+  }
 }
 
 .btn-to-home {
@@ -38,4 +41,8 @@
 .btn-transparent {
   background-color: transparent;
   border-color: transparent;  
+}
+
+.btn-circle {
+  border-radius: 50%!important;
 }

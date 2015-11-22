@@ -1,43 +1,9 @@
 // HOME
 
-.accordion-icons {
-	.panel {
-		.panel-heading {
-			.indicator {
-				color: $primary-green;
-			}
+.panel {
+	.panel-heading {
+		i.fa-pencil {
+			color: $primary-white;
 		}
-		.project-lists {
-			// background-color: $text-light;
-			button {
-				background-color: $text-light;
-				border-bottom: 1px solid $text-sublight;
-			    &:hover {
-				    background-color: $primary-green;
-				    color: white;
- 				}
- 				i.fa-chevron-circle-right {
- 					font-size: 18px;
- 				}
- 				.title {
- 					width: 90%;
-	 				p {
-	 					color: $alt-grey;
-	 					font-size: 14px;
-	 					font-weight: 600;
-	 				}
-	 				span {
-	 					color: $alt-lgrey;
-	 					font-size: 11px;
-	 				}
-	 			}
-			}
-		}	
-	}
-	
+	}	
 }
-
-thead th {
-	text-align: center;
-}
-

@@ -53,7 +53,7 @@
 		<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Finished' : 'Upcoming') ); ?>
 	</p>	
 </div> -->
-	<div class="container-fluid" style="color:white;">
+	<div class="container-fluid">
 		<?php if(isset($_GET['TasksUpdated'])): ?>
 			<div class="row">
 				<div class="alert alert-success alert-fadeout mb0 col-xs-12">
@@ -134,7 +134,7 @@
 						</div>
 					</div>
 				</div>
-				<?php endforeach; endif; ?>
+			<?php endforeach; endif; ?>
 		</div>
 		<div class="panel mb0 row">
 			<div class="panel-heading subheading col-xs-12">
