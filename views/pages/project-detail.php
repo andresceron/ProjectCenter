@@ -162,19 +162,29 @@
 				<form method="POST">
 					<?php if (!empty($tasksUnchecked)): ?>
 						<?php foreach ($tasksUnchecked as $row): ?>
-							<div class="checkbox col-xs-12">
-							 	<label>
-							    	<input type="checkbox" name="proj_tasks[]" value="<?= $row['todo_id']; ?>"><?= $row['todo_task']; ?>
-							  	</label>
-							</div>	
+							<div class="col-xs-12 pt10 pb10 border-bottom">
+								<div class="row">
+								 	<div class="col-xs-2">
+								 		<input type="checkbox" name="proj_tasks[]" value="<?= $row['todo_id']; ?>">
+								 	</div>
+								 	<div class="col-xs-10">
+								 		<p><?= $row['todo_task']; ?></p> 
+								 	</div>
+							 	</div>
+							</div>
 						<?php endforeach; ?>
 					<?php endif; ?>
 					<?php if(!empty($tasksChecked)): ?>
 						<?php foreach ($tasksChecked as $row): ?>
-							<div class="checkbox col-xs-12">
-							 	<label>
-							    	<input type="checkbox" checked disabled><?= $row['todo_task']; ?>
-							  	</label>
+							<div class="col-xs-12 pt10 pb10 border-bottom">
+							 	<div class="row">
+								 	<div class="col-xs-2">
+								    	<input type="checkbox" checked disabled>
+								  	</div>
+								  	<div class="col-xs-10">
+								  		<p><?= $row['todo_task']; ?></p>
+								  	</div>
+							  	</div>
 							</div>
 						<?php endforeach; ?>
 					<?php endif; ?>

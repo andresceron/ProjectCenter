@@ -2,6 +2,11 @@
 	include_once '../../dbconfig.php';
 	require_once '../../user_id.php';
 	//$proj_id = $_SESSION['proj_id'];
+
+    if(empty($user->is_loggedin())) {
+        $user->redirect('/projectCenter/views/pages/index.php');
+    }
+
 	$proj_id = $_GET['projId'];
 	$singleProjectsTasks = $projects->singleProjectTasks($proj_id);
 	
@@ -179,8 +184,6 @@
 				</div>
 			</form>
 		</div>
-
-
 		<div class="panel mb0 row">
 			<div class="panel-heading subheading col-xs-12">
 				<p class="panel-title subtitle text-left">
@@ -210,7 +213,6 @@
 				</div>
 			<?php endforeach; endif; ?>
 		</div>
-
 		<div class="panel mb0 row">
 			<div class="panel-heading subheading col-xs-12">
 				<p class="panel-title subtitle text-left">

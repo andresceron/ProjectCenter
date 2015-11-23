@@ -23,14 +23,22 @@ $( document ).ready(function() {
 
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
-        if(x < max_fields){ //max input box allowed
+        if (x < max_fields) { //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div><input type="text" class="form-control" name="txt_proj_todo[]" placeholder="Todo task here..."><btn class="btn btn-xs btn-danger remove-task-btn">-</button></div>'); //add input box
+            $(wrapper).append(
+            '<div class="single-task">' +
+                '<div class="col-xs-10 p0">' +
+                    '<input type="text" name="txt_proj_todo[]" class="form-control" placeholder="Add new task to this project" />' +   
+                '</div>' +
+                '<div class="col-xs-2 mt15">' +
+                    '<button class="btn btn-xs btn-danger remove-task-btn"><i class="fa fa-minus"></i></button>' +
+                '</div>' +
+            '</div>'); //add input box
         }
     });
     
     $(wrapper).on("click",".remove-task-btn", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
+        e.preventDefault(); $(this).closest('.single-task').remove(); x--;
     });
 
     // NAVBAR TOGGLE

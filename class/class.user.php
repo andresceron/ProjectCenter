@@ -32,7 +32,7 @@ class USER {
  
     public function login ($u_email,$u_pass) {
         try {
-            $query = "SELECT * FROM tbl_users WHERE user_email = ?";
+            $query = "SELECT * FROM tbl_users WHERE user_email = ? LIMIT 1";
             $stmt = $this->db->prepare($query);
             $stmt->execute(array(
                 $u_email
@@ -57,8 +57,9 @@ class USER {
     // @TODO: Not working
     public function department_name() {
         try {
-            $query = "SELECT user_id, user_firstname, user_lastname, user_department, department_name FROM tbl_users AS u ";
-            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id";
+            $query = "SELECT user_id, user_firstname, user_lastname, user_department, department_name, avatar_url FROM tbl_users AS u ";
+            $query .= "LEFT JOIN tbl_departments AS d ON u.user_department = d.department_id ";
+            $query .= "LEFT JOIN tbl_avatars AS a ON u.user_avatar = a.avatar_id";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             $departmentRow = $stmt->fetchAll(PDO::FETCH_ASSOC);

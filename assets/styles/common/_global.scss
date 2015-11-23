@@ -109,3 +109,13 @@ h4, h5 {
 .alert {
   margin-bottom: 0;
 }
+
+small {
+  &.tiny {
+    font-size: 8px;
+  }
+} 
+
+input[type='text'] {
+  border-radius: 0;
+}

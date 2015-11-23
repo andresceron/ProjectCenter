@@ -54,96 +54,118 @@
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
-
-	<div class="container create-project">
-		<p>Logged in as: <?= ($userInfo['user_firstname']); ?></p>
-		<h2>Create a new project</h2><hr />
-		</br>
+<form method="POST">
+	<div class="container-fluid create-project">
 		<?php if(isset($error)) { foreach($error as $error) { ?>
-			<div class="alert alert-danger">
-				<i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
-			</div>
-		<?php }} else if(isset($_GET['ProjCreated'])) { ?>
-			<div class="alert alert-info">
-	 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; Successfully registered <a href='home.php'>Back to home</a>
-			</div>
-		<?php } ?>
-		<div class="row">
-			<div class="col-md-8">
-				<div class="row">
-					<div class="progress progress-striped active">
-        				<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-    				</div>
-					<div class="row tasks">
-				        <!-- <div class="col-md-2">
-				          	<input type="button" value="10">
-				          	<input type="button" value="20">HEJ</button>
-				        </div> -->
-			      	</div>
-
-					<form method="post">
-						<div class="step-name">
-							<label class="col-md-2">Project name: </label>
-							<div class="col-md-10 form-group">
-								<input type="text" class="form-control" name="txt_proj_name" placeholder="Project Name" value="<?php if(isset($error)){echo $proj_name;}?>" />
-							</div>
-							<label class="col-md-2">Description: </label>
-							<div class="col-md-10 form-group">
-								<input type="text" class="form-control" name="txt_proj_desc" placeholder="Project Description" value="<?php if(isset($error)){echo $proj_desc;}?>" />
-							</div>	
-						</div>
-						<div class="step-date">
-							<label class="col-md-2">Start date: </label>
-							<div class="col-md-10 form-group">
-								<input type="date" class="form-control" name="txt_proj_date_start" placeholder="Project Start date" value="<?php if(isset($error)){echo $proj_date_start;}?>"/>
-							</div>						
-							<label class="col-md-2">End date:</label>
-							<div class="col-md-10 form-group">
-								<input type="date" class="form-control" name="txt_proj_date_end" placeholder="Project End date" value="<?php if(isset($error)){echo $proj_date_end;}?>"/>
-							</div>		
-						</div>
-						<div class="step-todo">
-						Todo's: <button class="btn btn-xs btn-success add-task-btn">+</button>
-						</div>
-						<div class="step-team">
-							<h4>Select your Team:</h4>
-							<?php foreach ($departments as $row): ?>
-								<div class="checkbox">
-								 	<label>
-								    	<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>"><?= $row['user_firstname'] . " | " . $row['department_name']; ?>
-								  	</label>
-								</div>	
-							<?php endforeach; ?>
-						</div>
-						<div class="step-create">
-							<div class="form-group col-md-12">
-								<button type="submit" class="btn btn-md btn-primary" name="btn-newProject">
-									 <i class="glyphicon glyphicon-open-file"></i>&nbsp;CREATE PROJECT
-								</button>
-							</div>
-						</div>
-					</form>
+			<div class="row">
+				<div class="alert alert-danger col-xs-12">
+					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+					<i class="glyphicon glyphicon-warning-sign"></i><?php echo $error; ?>
 				</div>
 			</div>
-			<?php /* 
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">Project Information</div>
-					<div class="panel-body">
-					<?php //TODO: Generate the previous projects
-						if (false) : ?>	
-						<div class="list-group">
-							<div class="project-lists">
-								<a href="#" class="unlisted-group">...</a>
-							</div>
-						</div>
-					<?php else : ?>
-		    			<p>...??...</p>
-		    		<?php endif; ?>
-			  	</div>
+		<?php }} else if(isset($_GET['ProjCreated'])) { ?>
+			<div class="row">
+				<div class="alert alert-info">
+					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
+		 			<i class="fa fa-bell"></i> Successfully registered. <a href='home.php'>Back to home</a>
+				</div>
+			</div>				
+		<?php } ?>
+		<div class="panel mb0 row">
+			<div class="panel-heading col-xs-12">
+				<h5 class="panel-title text-left">
+					New Project
+				</h5>
 			</div>
-			*/ ?>
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Project Name <small class="tiny">Max 60 characters</small>
+				</p>
 			</div>
 		</div>
+		<div class="panel-content row">
+			<div class="input-group col-xs-12">
+			  <input type="text" class="form-control" name="txt_proj_name" placeholder="" value="<?php if(isset($error)){echo $proj_name;}?>" />
+			</div>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Project Description <small class="tiny">Max 250 characters</small>
+				</p>
+			</div>
+		</div>
+		<div class="panel-content row">
+			<div class="input-group col-xs-12">
+				<textarea name="txt_proj_desc" class="form-control"><?php if(isset($error)){echo $proj_desc;}?></textarea>
+			</div>
+		</div>		
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Date
+				</p>
+			</div>
+		</div>
+		<div class="panel-content row">
+			<div class="col-xs-6 text-center border-right date">
+				<input type="date" name="txt_proj_date_start" value="<?= $singleProjectsRow['proj_date_start']; ?>" class="form-control"/>
+			</div>
+			<div class="col-xs-6 text-center date">
+				<input type="date" name="txt_proj_date_end" value="<?= $singleProjectsRow['proj_date_end']; ?>" class="form-control" />
+			</div>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Select your team
+				</p>
+			</div>
+		</div>
+		<div class="panel-content project-team row">
+			<?php foreach ($departments as $row): ?>
+				<div class="col-xs-12 pt10 pb10 border-bottom">
+					<div class="row">
+						<div class="col-xs-2">
+							<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>">
+						</div>
+						<div class="col-xs-3 profile">
+							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" />
+						</div>
+						<div class="col-xs-7">
+							<p><?= $row['user_firstname']. " " .$row['user_lastname']; ?></p>
+							<span><?= $row['department_name']; ?></span>
+						</div>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Add your tasks <button class="btn btn-xs btn-success btn-circle add-task-btn pull-right"><i class="fa fa-plus"></i> </button>
+				</p>
+			</div>
+		</div>
+		<div class="panel-content tasklist row">
+			<div class="col-xs-12">
+				<div class="row step-todo">
+				</div>
+			</div>		
+		</div>
+		<div class="row">
+			<button type="submit" class="btn btn-lg btn-block btn-primary" name="btn-newProject">
+				 <i class="fa fa-plus"></i>Create Project
+			</button>
+		</div>
 	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+			</div>
+		</div>			
+	</div>
+</form>
+
 <?php include '../partials/footer.php'; ?>

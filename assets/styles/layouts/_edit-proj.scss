@@ -8,25 +8,4 @@
 			}
 		}	
 	}
-	.panel-content {
-		 input {
-			height: 50px;
-		}
-		textarea {
-			height: 150px;
-			resize: none;
-		}
-		.date {
-			padding-left: 0;
-			padding-right: 0;
-			input[type="date"] {
-				
-			}
-		}
-		.project-team {
-			button {
-				color: $primary-white;
-			}
-		}
-	}
 }

@@ -1,5 +1,7 @@
 <?php
+//print_r (session_start());
 session_start();
+session_regenerate_id(true);
 
 $DB_host = "localhost";
 $DB_user = "root";

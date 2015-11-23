@@ -2,7 +2,9 @@
 	require_once '../../dbconfig.php';
 	require_once '../../user_id.php';
 
-	if(!$user->is_loggedin()) {
+	// print_r ($user_id);
+	// print_r ($_SESSION['user_session']);
+	if(!$user->is_loggedin($user_id)) {
 		$user->redirect('http://localhost:8888/projectCenter/index.php');
 	}	
 

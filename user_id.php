@@ -1,7 +1,15 @@
 <?php
-
+	// session_start();
+	// session_regenerate_id(true);
 	// Users ID
-	$user_id           = isset($_SESSION['user_session']);     	
+	if (empty($_SESSION['user_session'])) {
+		$user_id = "";
+	} else {
+		$user_id = $_SESSION['user_session'];     	
+	}
+	
+
+	// $user_id           = $_SESSION['user_session'];     	
 	// User variables 
 	$allUsers          = $user->allUsers($user_id);
 	$userInfo          = $user->userData($user_id);

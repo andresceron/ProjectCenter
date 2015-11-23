@@ -2,7 +2,7 @@
     require_once 'dbconfig.php';
     
     if(!empty($user->is_loggedin())) {
-        $user->redirect('http://localhost:8888/projectCenter/views/pages/home.php');
+        $user->redirect('/projectCenter/views/pages/home.php');
     }
 
     if(isset($_POST['btn-login'])) {
@@ -18,7 +18,7 @@
     include 'views/partials/header.php';
 ?>
 <div class="container login">
-    <form method="post" autocomplete="false">
+    <form method="post">
         <?php if(isset($error)): ?>
             <div class="alert alert-danger">
                 <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
