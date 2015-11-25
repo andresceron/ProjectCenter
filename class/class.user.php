@@ -6,12 +6,12 @@ class USER {
         $this->db = $DB_con;
     }
   
-    public function register ($u_fname, $u_lname, $u_email, $u_department, $u_pass, $u_avatar) {
+    public function register ($u_fname, $u_lname, $u_email, $u_department, $u_pass, $u_type, $u_avatar) {
         try {
             $options = ['cost' => 12];            
             $hashed_password = password_hash($u_pass, PASSWORD_BCRYPT, $options);
 
-            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_department, user_pass, user_avatar) VALUES (:u_fname, :u_lname, :u_email, :u_department, :u_pass, :u_avatar)";
+            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_department, user_pass, user_usertype, user_avatar) VALUES (:u_fname, :u_lname, :u_email, :u_department, :u_pass, :u_type, :u_avatar)";
             $stmt = $this->db->prepare($query);    
             $result = $stmt->execute(
               array(
@@ -20,6 +20,7 @@ class USER {
                 'u_email' => $u_email,
                 'u_department' => $u_department,
                 'u_pass' => $hashed_password,
+                'u_type' => $u_type,
                 'u_avatar' => $u_avatar
                 ));
 

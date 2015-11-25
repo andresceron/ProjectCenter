@@ -126,16 +126,18 @@
 			<?php foreach ($departments as $row): ?>
 				<div class="col-xs-12 pt10 pb10 border-bottom">
 					<div class="row">
-						<div class="col-xs-2">
-							<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>">
-						</div>
-						<div class="col-xs-3 profile">
-							<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" />
-						</div>
-						<div class="col-xs-7">
-							<p><?= $row['user_firstname']. " " .$row['user_lastname']; ?></p>
-							<span><?= $row['department_name']; ?></span>
-						</div>
+						<label>
+							<div class="col-xs-2 mt10">
+								<input type="checkbox" name="txt_user_id[]" value="<?= $row['user_id']; ?>">
+							</div>
+							<div class="col-xs-3 profile">
+								<img src="<?= $assetsImg . "/avatars/" . $row['avatar_url']; ?>" />
+							</div>
+							<div class="col-xs-7">
+								<p><?= $row['user_firstname']. " " .$row['user_lastname']; ?></p>
+								<span><?= $row['department_name']; ?></span>
+							</div>
+						</label>
 					</div>
 				</div>
 			<?php endforeach; ?>
@@ -154,8 +156,8 @@
 			</div>		
 		</div>
 		<div class="row">
-			<button type="submit" class="btn btn-lg btn-block btn-primary" name="btn-newProject">
-				 <i class="fa fa-plus"></i>Create Project
+			<button type="submit" class="btn btn-create btn-block btn-primary" name="btn-newProject">
+				 <i class="fa fa-plus pull-left"></i>Create Project
 			</button>
 		</div>
 	</div>
