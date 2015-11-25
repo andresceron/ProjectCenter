@@ -6,7 +6,6 @@ body, html {
 }
 
 body {
-    padding-bottom: 20px;
     width: 100%;
     &.home {
       background-color: #2B2F3E;
@@ -118,4 +117,11 @@ small {
 
 input[type='text'] {
   border-radius: 0;
+}
+
+hr.height-space {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: 1px solid $third-grey;
+  width: 90%;
 }

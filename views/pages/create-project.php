@@ -3,7 +3,9 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('http://localhost:8888/projectCenter/index.php');
+		$user->redirect('/projectCenter/index.php');
+	} elseif ($usertype != 1) {
+		$user->redirect('/projectCenter/home.php');
 	}
 
 	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = $proj_todos = "" ;
@@ -156,7 +158,7 @@
 			</div>		
 		</div>
 		<div class="row">
-			<button type="submit" class="btn btn-create btn-block btn-primary" name="btn-newProject">
+			<button type="submit" class="btn btn-create btn-block btn-links btn-primary" name="btn-newProject">
 				 <i class="fa fa-plus pull-left"></i>Create Project
 			</button>
 		</div>
@@ -164,7 +166,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+				<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
 			</div>
 		</div>			
 	</div>

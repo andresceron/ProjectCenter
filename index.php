@@ -25,7 +25,7 @@
             </div>
         <?php endif; ?>
         <div class="text-center mt40">
-            <img src="assets/img/logo.png" class="login-logo mb15">
+            <img src="/ProjectCenter/assets/img/logo.png" class="login-logo mb15">
             <h4>Project Center</h4>
         </div>
         <div class="mt40">
@@ -43,6 +43,4 @@
         </div>
     </form>
 </div>
-
-</body>
-</html>
+<?php include 'views/partials/footer.php'; ?>

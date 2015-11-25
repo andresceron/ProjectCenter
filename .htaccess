@@ -5,7 +5,7 @@
 	errordocument 404 /projectCenter/404.php
 
 # No acces to directory folders
-	Options -Indexes
+	#Options -Indexes
 	IndexIgnore *
 
 	Options +FollowSymLinks
@@ -19,3 +19,5 @@
 		order allow,deny
 		deny from all
 	</Files>
+
+

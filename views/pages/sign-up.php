@@ -2,6 +2,12 @@
 require_once '../../dbconfig.php';
 require_once '../../user_id.php';
 
+if(!$user->is_loggedin()) {
+  $user->redirect('/projectCenter/index.php');
+} elseif ($usertype != 1) {
+  $user->redirect('/projectCenter/home.php');
+}
+
 // Select departments query
 $stmt = $DB_con->prepare("SELECT * FROM tbl_departments"); 
 $stmt->execute();
@@ -187,15 +193,15 @@ include '../partials/nav.php';
       </div>
     </div>
     <div class="row">
-      <button type="submit" class="btn btn-create btn-block btn-primary" name="btn-signup">
-         <i class="fa fa-plus pull-left"></i>Sign Up
+      <button type="submit" class="btn btn-links btn-block btn-primary" name="btn-signup">
+        Sign Up
       </button>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>  
+        <a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15">Back to home</a>  
       </div>
     </div>      
   </div>

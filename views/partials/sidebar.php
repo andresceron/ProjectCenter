@@ -4,10 +4,10 @@
 			<div class="panel-heading col-xs-12">
 				<div class="profile text-center">
 					<form method="POST" action="home.php">
-						<label class="mt5">
+						<label class="mt5 border-bottom">
 							<img src="<?= $assetsImg . "/avatars/" . $userInfo['avatar_url']; ?>" alt="<?= "profile-" . $userInfo['user_firstname'] ?>" />
 							<input type="hidden" name="user_id_edit" value="<?= $userInfo['user_id']; ?>">
-							<button type="submit" class="btn-transparent" name="editUser">
+							<button type="submit" class="btn-transparent mb10" name="editUser">
 								<p class="ellipsis mt10 mb5"><?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname'];?></p>	
 								<span class="ellipsis"><?= $userInfo['department_name'];?></span>	
 							</button>
@@ -17,25 +17,15 @@
 			</div>
 		</div>	
 	</div>
-		<a href="create-project.php" class="btn btn-sidebar btn-primary btn-block">Create new project</a> 
-		<a href="sign-up.php" class="btn btn-sidebar btn-success btn-block"><i class=""></i> New user</a>
-		<a href="management.php" class="btn btn-sidebar btn-warning btn-block">Management</a>
-		<a href="logout.php?logout=true" class="btn btn-danger btn-md btn-block"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+		<?php if($usertype == 1) : ?>
+			<a href="create-project.php" class="btn btn-links btn-primary btn-block">Create new project</a> 
+			<a href="sign-up.php" class="btn btn-links btn-success btn-block">Add new user</a>
+		<?php endif; ?>
+		<a href="management.php" class="btn btn-links btn-warning btn-block">User Center</a>
+		<?php if ($variables->curPageName() != $homePage): ?>
+			<hr class="height-space">
+			<a href="home.php" class="btn btn-links btn-info btn-block">Back to home</a> 
+		<?php endif; ?>
+		<hr class="height-space">
+		<a href="logout.php?logout=true" class="btn btn-danger btn-md btn-block btn-links btn-logout">Logout</a>
 </aside>
-
-		  	<!-- <div class="table-responsive">
-				<table class="table">
-					<tr>
-						<td>Name:</td>
-						<td><?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname'];?></td>
-					</tr>
-					<tr>
-						<td>E-mail:</td>
-						<td><?= $userInfo['user_email']; ?></td>
-					</tr>
-					<tr>
-						<td>Department:</td>
-						<td><?= $userInfo['department_name']; ?></td>
-					</tr>
-				</table>
-			</div> -->

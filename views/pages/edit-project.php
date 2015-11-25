@@ -3,9 +3,11 @@
 	require_once '../../user_id.php';
 	//$proj_id = $_SESSION['proj_id'];
 
-    if(empty($user->is_loggedin())) {
-        $user->redirect('/projectCenter/views/pages/index.php');
-    }
+	if(!$user->is_loggedin()) {
+		$user->redirect('/projectCenter/index.php');
+	} elseif ($usertype != 1) {
+		$user->redirect('/projectCenter/home.php');
+	}
 
 	$proj_id = $_GET['projId'];
 	$singleProjectsTasks = $projects->singleProjectTasks($proj_id);
@@ -177,10 +179,10 @@
 		<div class="panel-content status border-bottom row">
 			<form method="POST">
 				<div class="col-xs-6">
-					<button type="submit" class="btn btn-full-multi btn-info" name="btn-updateProj" value="Update Project">Update Project</button>
+					<button type="submit" class="btn btn-full-multi btn-links btn-info" name="btn-updateProj" value="Update Project">Update Project</button>
 				</div>
 				<div class="col-xs-6">
-					<button type="submit" class="btn btn-full-multi btn-danger" name="btn-deleteProj" value="Delete Project">Delete Project</button>
+					<button type="submit" class="btn btn-full-multi btn-links btn-danger" name="btn-deleteProj" value="Delete Project">Delete Project</button>
 				</div>
 			</form>
 		</div>
@@ -257,10 +259,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<a href="project-detail.php?showProj=<?= $proj_id ?>" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-chevron-left pull-left"></i> Back to project info</a>	
+				<a href="project-detail.php?showProj=<?= $proj_id ?>" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-chevron-left pull-left"></i> Back to project info</a>	
 			</div>
 			<div class="col-xs-12">
-				<a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+				<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
 			</div>
 		</div>			
 	</div>

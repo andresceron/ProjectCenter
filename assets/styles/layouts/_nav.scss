@@ -41,7 +41,8 @@ nav {
 		margin-bottom: 0;
 	}
 
-.sidebar {
+aside.sidebar {
+	border: 2px solid $alt-grey;
 	.profile img {
 		max-width: 120px;
 		label {
@@ -52,5 +53,8 @@ nav {
 				font-size: 12px;
 			}
 		}
+	}
+	.btn-logout {
+		margin-top: 10px;
 	}
 }

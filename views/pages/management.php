@@ -3,7 +3,7 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('http://localhost:8888/projectCenter/index.php');
+		$user->redirect('/projectCenter/index.php');
 	}
 
     if (isset($_POST['editUser'])) {
@@ -45,8 +45,8 @@
       </div>
   	</div>
 		<?php foreach ($allUsers as $row): ?>
-			<div class="panel row mb5">
-				<div class="panel-heading subheading-alt collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#user-<?= $row['user_id']; ?>">
+			<div class="panel row mb0">
+				<div class="panel-heading subheading-alt collapsed pt15 pb15" role="button" data-toggle="collapse" data-parent="#accordion" href="#user-<?= $row['user_id']; ?>">
 					<div class="row">
 						<!-- <a class="collapsed"> -->
 							<div class="profile text-left col-xs-3">
@@ -56,7 +56,7 @@
 	       				<p class="ellipsis"><?= $row['user_firstname'] . ' ' . $row['user_lastname']; ?></p>
 	       				<span><?= $row['department_name']; ?></span>
 	       			</div>
-	       			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
+	       			<i class="indicator fa fa-chevron-down text-right col-xs-2 mt15"></i>
 		        <!-- </a> -->
 	        </div>
 				</div>

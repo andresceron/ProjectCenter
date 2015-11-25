@@ -33,14 +33,14 @@ module.exports = function(grunt) {
             'assets/js/main.js'
           ]
         },
-        modernizr: {
-          build: {
-            devFile: 'bower_components/modernizr/modernizr.js',
-            outputFile: 'assets/js/vendors/modernizr.min.js',
-            uglify: true,
-            parseFiles: true
-          }
-        },
+        // modernizr: {
+        //   build: {
+        //     devFile: 'bower_components/modernizr/modernizr.js',
+        //     outputFile: 'dist/assets/scripts/vendors/modernizr.min.js',
+        //     uglify: true,
+        //     parseFiles: true
+        //   }
+        // },
         concat: { 
             options: {
               separator: ';',
@@ -70,9 +70,9 @@ module.exports = function(grunt) {
             },
             files: [{
               expand: true,                     // Enable dynamic expansion
-              cwd: 'assets/images/',                // Src matches are relative to this path
-              src: ['**/*.{png,jpg,gif,svg}'],   // Actual patterns to match
-              dest: 'dist/assets/images'           // Destination path prefix
+              cwd: 'assets/img/',                // Src matches are relative to this path
+              src: ['**/*.{png,jpg}'],   // Actual patterns to match
+              dest: 'dist/assets/img/'           // Destination path prefix
             }]
           },
         }, 
@@ -156,6 +156,10 @@ module.exports = function(grunt) {
                 flatten: true, 
                 filter: 'isFile'
               },
+               {
+                src: ['/*.php'], 
+                dest: 'dist/'
+              }
             ]
           }
         },
@@ -241,7 +245,7 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('dev', [
-        'modernizr',
+        // 'modernizr',
         'jshint',
         'sass:dev',
         'autoprefixer:dev',
@@ -249,14 +253,13 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'newer:modernizr',
-        'newer:jshint',
-        'newer:sass:build',
-        'newer:autoprefixer:build',
+        'jshint',
+        'sass:build',
+        'autoprefixer:build',
         'newer:concat',
         'newer:uglify',
         'newer:favicons',
-        'newer:imagemin',
+        // 'newer:imagemin',
         'processhtml',
         'newer:uncss',
         'newer:copy:build'
