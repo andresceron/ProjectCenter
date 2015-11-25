@@ -34,6 +34,13 @@
 			</div>
 		<?php endif; ?>
 		<div class="accordion-icons">
+		    <div class="panel mb0 row">
+		      <div class="panel-heading title-section col-xs-12">
+		        <h5 class="panel-title text-left">
+		          Dashboard
+		        </h5>
+		      </div>
+		  	</div>
 			<div class="panel mb0 row">
 				<div class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#activeProjects">
 					<div class="row">
@@ -48,8 +55,10 @@
 				<div id="activeProjects" class="panel-collapse collapse in" role="tabpanel">
 					<div class="project-lists">
 						<?php if ($activeProjects === false): ?>
-							<p>No active projects yet</p>
-							<a href="create-project.php" class="btn btn-primary btn-md">Create new project</a> 
+							<div class="proj-false pt10">
+								<p class="">No active projects yet</p>
+								<a href="create-project.php" class="btn btn-primary btn-block pt15 pb15">Create new project</a> 
+							</div>
 						<?php else: ?>
 							<?php foreach ($activeProjects as $row): ?>
 								<form method="post" action="home.php">
@@ -83,7 +92,9 @@
 				<div id="upcomingProjects" class="panel-collapse collapse" role="tabpanel">
 					<div class="project-lists">
 						<?php if ($upcomingProjects === false): ?>
-							<p>No upcoming projects yet</p>
+							<div class="proj-false pt10 pb10">
+								<p class="mb0">No upcoming projects yet</p>
+							</div>
 						<?php else: ?>
 							<?php foreach ($upcomingProjects as $row): ?>
 								<form method="post" action="home.php">
@@ -117,7 +128,9 @@
 				<div id="previousProjects" class="panel-collapse collapse" role="tabpanel">
 					<div class="project-lists">
 						<?php if ($previousProjects === false): ?>
-							<p>No previous projects yet</p>
+							<div class="proj-false pt10 pb10">
+								<p class="mb0">No previous projects yet</p>
+							</div>
 						<?php else: ?>
 							<?php foreach ($previousProjects as $row): ?>	
 								<form method="post" action="home.php">

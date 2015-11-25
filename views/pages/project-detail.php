@@ -71,17 +71,21 @@
 			</div>
 		<?php endif; ?>
 		<div class="panel mb0 row">
-			<div class="panel-heading col-xs-12">
-				<h5 class="panel-title text-left">
-					Project Details
-				</h5>
-				<?php if($usertype == 1): ?>
-					<form method="POST" class="inline pull-right">
-						<button type="submit" class="btn btn-transparent btn-edit" name="btn-editProj" value="Edit">
-							<i class="fa fa-pencil"></i>
-						</button>
-					</form>
-				<?php endif; ?>
+			<div class="panel-heading title-section col-xs-12">
+				<div class="row">
+					<h5 class="panel-title text-left col-xs-10 <?= ($usertype == 1 ? "mt5" : ""); ?>"> 
+						Project Details
+					</h5>
+					<div class="col-xs-2">
+						<?php if($usertype == 1): ?>
+							<form method="POST" class="inline cool-x">
+								<button type="submit" class="btn btn-transparent btn-edit" name="btn-editProj" value="Edit">
+									<i class="fa fa-pencil"></i>
+								</button>
+							</form>
+						<?php endif; ?>	
+					</div>
+				</div>
 			</div>
 			<div class="panel-heading subheading col-xs-12">
 				<p class="panel-title subtitle text-left">

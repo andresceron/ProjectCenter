@@ -1,9 +1,11 @@
 nav {
-	background-color: $primary-green;
+	//background-color: $primary-green;
+	background-color: $alt-primary;
 	.navbar-header {
 		a.navbar-brand {
 			label {
 				color: $alt-grey;
+				color: $cream-white;
 			}
 		}
 		.navbar-toggle {
@@ -16,7 +18,7 @@ nav {
 	.slide-menu {
 	    display: none;
 	    color: blue;
-	    width: 85%;
+	    width: 80%;
 	    position: absolute;
 	    right: -1px;
 	    z-index: 1000;
@@ -38,3 +40,17 @@ nav {
 .navbar {
 		margin-bottom: 0;
 	}
+
+.sidebar {
+	.profile img {
+		max-width: 120px;
+		label {
+			p {
+				font-size: 15px;
+			}
+			span {
+				font-size: 12px;
+			}
+		}
+	}
+}

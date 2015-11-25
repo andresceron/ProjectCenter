@@ -81,7 +81,7 @@ include '../partials/nav.php';
       </div>        
     <?php } ?>
     <div class="panel mb0 row">
-      <div class="panel-heading col-xs-12">
+      <div class="panel-heading title-section col-xs-12">
         <h5 class="panel-title text-left">
           New user
         </h5>

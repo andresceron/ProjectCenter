@@ -38,7 +38,7 @@
 	<?php endif; ?>
 	<div class="accordion-icons management">
     <div class="panel mb0 row">
-      <div class="panel-heading col-xs-12">
+      <div class="panel-heading title-section col-xs-12">
         <h5 class="panel-title text-left">
           The Team
         </h5>
@@ -49,7 +49,7 @@
 				<div class="panel-heading subheading-alt collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#user-<?= $row['user_id']; ?>">
 					<div class="row">
 						<!-- <a class="collapsed"> -->
-							<div class="picture text-left col-xs-3">
+							<div class="profile text-left col-xs-3">
 	       				<img src="<?= $assetsImg.'/avatars/'.$row['avatar_url']; ?>">
 	       			</div>
 	       			<div class="col-xs-7">

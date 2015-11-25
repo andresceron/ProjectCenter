@@ -3,8 +3,13 @@
 .accordion-icons {
 	.panel {
 		.panel-heading {
-			.indicator {
-				color: $primary-green;
+	    .indicator {
+	      color: $poopy-brown;
+	      color: $alt-primary;
+  	  }
+			&.dashboard {
+				// background-color: $alt-primary;
+				background-color: $primary-green;
 			}
 		}
 		.project-lists {
@@ -32,6 +37,14 @@
 	 				}
 	 			}
 			}
+			.proj-false {
+				background-color: $text-light;
+				text-align: center;
+				&:hover {
+				    background-color: $primary-green;
+				    color: white;
+ 				}
+			}
 		}	
 	}
 	
@@ -40,4 +53,3 @@
 thead th {
 	text-align: center;
 }
-

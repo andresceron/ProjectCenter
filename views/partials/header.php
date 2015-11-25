@@ -9,7 +9,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="SV-se">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="description" content="">

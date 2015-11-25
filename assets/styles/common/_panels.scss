@@ -6,9 +6,6 @@
   .panel-heading {
     background-color: $third-grey;
     border-radius: 0;
-    .indicator {
-      color: $primary-green;
-    }
     .panel-title {
       color: white;
       text-transform: uppercase;
@@ -20,6 +17,9 @@
       span {
         font-size: 12px;
       }
+    }
+    &.title-section {
+      background-color: $poopy-brown;
     }
     &.subheading {
       background-color: $alt-lgrey;

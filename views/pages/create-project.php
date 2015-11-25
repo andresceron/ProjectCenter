@@ -72,7 +72,7 @@
 			</div>				
 		<?php } ?>
 		<div class="panel mb0 row">
-			<div class="panel-heading col-xs-12">
+			<div class="panel-heading title-section col-xs-12">
 				<h5 class="panel-title text-left">
 					New Project
 				</h5>
@@ -109,10 +109,10 @@
 		</div>
 		<div class="panel-content row">
 			<div class="col-xs-6 text-center border-right date">
-				<input type="date" name="txt_proj_date_start" value="<?= $singleProjectsRow['proj_date_start']; ?>" class="form-control"/>
+				<input type="date" name="txt_proj_date_start" class="form-control"/>
 			</div>
 			<div class="col-xs-6 text-center date">
-				<input type="date" name="txt_proj_date_end" value="<?= $singleProjectsRow['proj_date_end']; ?>" class="form-control" />
+				<input type="date" name="txt_proj_date_end" class="form-control" />
 			</div>
 		</div>
 		<div class="panel mb0 row">
