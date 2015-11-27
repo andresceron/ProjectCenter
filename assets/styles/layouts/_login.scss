@@ -50,27 +50,3 @@
 		}
 	}
 }
-
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: $screen-sm-min) { 
-	.login {
-		width: 40%;
-	}
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: $screen-md-min) { 
-	.login {
-		width: 35%;
-	}
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: $screen-lg-min) { 
-	.login {
-		width: 30%;
-	}
-}
-
-

@@ -2,7 +2,7 @@
     require_once 'dbconfig.php';
     
     if(!empty($user->is_loggedin())) {
-        $user->redirect('/projectCenter/views/pages/home.php');
+        $user->redirect('/views/pages/home.php');
     }
 
     if(isset($_POST['btn-login'])) {
@@ -10,22 +10,22 @@
         $u_pass = $_POST['txt_u_pass'];
     
         if($user->login($u_email,$u_pass)) {
-            $user->redirect('views/pages/home.php?userLoggedIn');
+            $user->redirect('/views/pages/home.php?userLoggedIn');
         } else {
             $error = "Wrong Details! Please try again...";
         }  
     }
     include 'views/partials/header.php';
 ?>
-<div class="container login">
+<?php if(isset($error)): ?>
+    <div class="alert alert-danger text-center">
+        <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
+    </div>
+<?php endif; ?>
+<div class="login">
     <form method="post">
-        <?php if(isset($error)): ?>
-            <div class="alert alert-danger">
-                <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?> !
-            </div>
-        <?php endif; ?>
         <div class="text-center mt40">
-            <img src="/ProjectCenter/assets/img/logo.png" class="login-logo mb15">
+            <img src="/assets/img/logo.png" class="login-logo mb15">
             <h4>Project Center</h4>
         </div>
         <div class="mt40">

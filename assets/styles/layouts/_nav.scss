@@ -17,37 +17,28 @@ nav {
 	}
 	.slide-menu {
 	    display: none;
-	    color: blue;
+	    color: $primary-white;
 	    width: 80%;
 	    position: absolute;
 	    right: -1px;
 	    z-index: 1000;
 	}
-	
-	// .fa-cog {
-	// 	font-size: 24px;
-	// 	vertical-align: middle;
-	// 	color: #000000;
-	// 	text-decoration: none;
-	// 	width: 30px;
-	// 	text-align: center;
-	// 	:hover {
-	// 		color: #b1b1b1;
-	// 	}		
-	// }
 }
 
 .navbar {
-		margin-bottom: 0;
-	}
+	margin-bottom: 0;
+}
 
 aside.sidebar {
 	border: 2px solid $alt-grey;
-	.profile img {
-		max-width: 120px;
+	.profile {
+		img {
+			max-width: 120px;
+		}
 		label {
 			p {
-				font-size: 15px;
+				font-size: 14px;
+				text-transform: uppercase;
 			}
 			span {
 				font-size: 12px;

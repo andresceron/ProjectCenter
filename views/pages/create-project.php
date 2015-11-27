@@ -3,9 +3,9 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('/projectCenter/index.php');
+		$user->redirect('/index.php');
 	} elseif ($usertype != 1) {
-		$user->redirect('/projectCenter/home.php');
+		$user->redirect('home.php');
 	}
 
 	$proj_name = $proj_desc = $proj_date_start = $proj_date_end = $proj_users_id = $proj_todos = "" ;
@@ -166,7 +166,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+				<a href="home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
 			</div>
 		</div>			
 	</div>

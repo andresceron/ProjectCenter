@@ -15,6 +15,7 @@
 		$update_firstname = $_POST['update_firstname'];
 		$update_lastname = $_POST['update_lastname'];
 		$update_email = $_POST['update_email'];	
+		$update_phone = $_POST['update_phone'];	
 
 		if(empty($_POST['update_avatar'])) {
 			$update_avatar = $userInfo['user_avatar'];
@@ -28,8 +29,10 @@
 	    	$error[] = "provide a last name!"; 
 	   	} else if(empty($update_email)) {
 	    	$error[] = "provide email!"; 
+	   	} else if(empty($update_phone)) {
+	    	$error[] = "provide phone!"; 
 	   	} else {
-    		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id_edit)) {
+    		if($user->update_user($update_firstname, $update_lastname, $update_email, $update_phone, $update_avatar, $user_id_edit)) {
         		$user->redirect('edit-user.php?userUpdated');
         	}
 	  	} 
@@ -100,6 +103,18 @@
 	    <div class="panel mb0 row">
 	      <div class="panel-heading subheading col-xs-12">
 	        <p class="panel-title subtitle text-left">
+	          Phone
+	        </p>
+	      </div>
+	    </div>
+	    <div class="panel-content row">
+	      <div class="input-group col-xs-12">
+	        <input type="number" class="form-control" name="update_phone" placeholder="Phone" value="<?= $editUserInfo['user_phone'] ?>" />
+	      </div>
+	    </div>
+	    <div class="panel mb0 row">
+	      <div class="panel-heading subheading col-xs-12">
+	        <p class="panel-title subtitle text-left">
 	          Department
 	        </p>
 	      </div>
@@ -144,15 +159,15 @@
       </div>
     </div>
     <div class="row">
-    	<button type="submit" class="btn btn-create btn-block btn-primary" name="btn-updateUser">
-         <i class="fa fa-plus pull-left"></i>Sign Up
+    	<button type="submit" class="btn btn-create btn-block btn-links btn-blue" name="btn-updateUser">
+         Update user
       </button>
   	</div>
 	</div>
 	<div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <a href="../home.php" class="btn btn-block btn-outline btn-to-home mt15"><i class="fa fa-home pull-left"></i> Back to home</a>  
+        <a href="../home.php" class="btn btn-block btn-outline btn-links btn-to-home"><i class="fa fa-chevron-left pull-left"></i> Back to home</a>  
       </div>
     </div>      
   </div>

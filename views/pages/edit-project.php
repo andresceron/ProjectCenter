@@ -4,9 +4,9 @@
 	//$proj_id = $_SESSION['proj_id'];
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('/projectCenter/index.php');
+		$user->redirect('/index.php');
 	} elseif ($usertype != 1) {
-		$user->redirect('/projectCenter/home.php');
+		$user->redirect('home.php');
 	}
 
 	$proj_id = $_GET['projId'];
@@ -23,10 +23,6 @@
 	$singleProjectsRow = $projects->singleProject($proj_id);
 	$allUsersProj      = $projects->allUsersProj($proj_id);
 	$getData 		   = $user->simpleData($get_id);
-
-	if(!$user->is_loggedin()) {
-		$user->redirect('http://localhost:8888/projectCenter/index.php');
-	}
 
 	if(isset($_POST['btn-updateProj'])) {
 		$proj_name       = $_POST['proj_name'];
@@ -112,9 +108,9 @@
 			</div>	
 			<?php elseif(isset($_GET['teamMemberDeleted'])): ?>
 			<div class="row">
-				<div class="alert alert-info col-xs-12">
+				<div class="alert alert-warning col-xs-12">
 					<a href="#" class="close" data-dismiss="alert"><i class="fa fa-times"></i></a>
-		 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; <?= $getData['user_firstname']; ?> Removed from Project
+		 			<i class="glyphicon glyphicon-log-in"></i> &nbsp; <?= $getData['user_firstname']; ?> was removed from Project
 				</div>
 			</div>
 			<?php elseif(isset($_GET['deletedTask'])): ?>
@@ -126,7 +122,7 @@
 			</div>
 			<?php endif; ?>
 		<div class="panel mb0 row">
-			<div class="panel-heading col-xs-12">
+			<div class="panel-heading title-section col-xs-12">
 				<h5 class="panel-title text-left">
 					Edit Project
 				</h5>
@@ -179,7 +175,7 @@
 		<div class="panel-content status border-bottom row">
 			<form method="POST">
 				<div class="col-xs-6">
-					<button type="submit" class="btn btn-full-multi btn-links btn-info" name="btn-updateProj" value="Update Project">Update Project</button>
+					<button type="submit" class="btn btn-full-multi btn-links btn-blue" name="btn-updateProj" value="Update Project">Update Project</button>
 				</div>
 				<div class="col-xs-6">
 					<button type="submit" class="btn btn-full-multi btn-links btn-danger" name="btn-deleteProj" value="Delete Project">Delete Project</button>
@@ -262,7 +258,7 @@
 				<a href="project-detail.php?showProj=<?= $proj_id ?>" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-chevron-left pull-left"></i> Back to project info</a>	
 			</div>
 			<div class="col-xs-12">
-				<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-home pull-left"></i> Back to home</a>	
+				<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links"><i class="fa fa-home pull-left"></i> Back to home</a>	
 			</div>
 		</div>			
 	</div>

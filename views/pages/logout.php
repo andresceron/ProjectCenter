@@ -4,12 +4,10 @@
 
 	
 	if($_SESSION['user_session']!="") {
-		$user->redirect('/projectCenter/views/pages/home.php');
+		$user->redirect('home.php');
 	}
+
 	if(isset($_GET['logout']) && $_GET['logout']=="true") {
 		$user->logout();
-		$user->redirect('/ProjectCenter/index.php?loggedOut');
+		$user->redirect('/index.php?loggedOut');
 	}
-	// if(!isset($_SESSION['user_session'])) {
-	// 	$user->redirect('http://localhost:8888/projectCenter/index.php');
-	// } 

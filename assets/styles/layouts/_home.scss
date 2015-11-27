@@ -18,8 +18,8 @@
 				background-color: $text-light;
 				border-bottom: 1px solid $text-sublight;
 			    &:hover {
-				    background-color: $primary-green;
-				    color: white;
+				    background-color: $cream;
+				    color: $alt-lgrey;
  				}
  				i.fa-chevron-circle-right {
  					font-size: 18px;
@@ -41,8 +41,8 @@
 				background-color: $text-light;
 				text-align: center;
 				&:hover {
-				    background-color: $primary-green;
-				    color: white;
+				    background-color: $cream;
+				    color: $alt-lgrey;
  				}
 			}
 		}	

@@ -2,10 +2,13 @@
 .panel {
   border: 0;
   background-color: $alt-lgrey;
-  // border-bottom: 1px solid $alt-lgrey;
   .panel-heading {
-    background-color: $third-grey;
+    background-color: $bg-grey;
     border-radius: 0;
+    &.collapsed {
+      transition: background-color 100ms ease;
+      background-color: $third-grey;
+    }
     .panel-title {
       color: white;
       text-transform: uppercase;
@@ -45,7 +48,7 @@
 .panel-content {
   background-color: $primary-white;
   color: $alt-grey;
-	 input[type="text"], input[type="email"], input[type="date"], input[type="password"], select {
+	 input[type="text"], input[type="email"], input[type="date"], input[type="password"], input[type="number"], select {
 		height: 50px;
     border: 0;
 	}
@@ -140,6 +143,6 @@ $avatar-id: 0;
 @for $i from 1 through 14 {
   $avatar-id: $avatar-id + 1;
   .avatar-#{$avatar-id}{
-      background-image:url(/ProjectCenter/assets/img/avatars/avatar-#{$avatar-id}.png);
+      background-image:url(/assets/img/avatars/avatar-#{$avatar-id}.png);
   }
 }

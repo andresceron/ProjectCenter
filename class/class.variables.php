@@ -18,14 +18,12 @@ class VARIABLES {
     public function getAssetsImg() {
         $url_assets_img  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
         $url_assets_img .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
-        $url_assets_img .= '/ProjectCenter';
         $url_assets_img .= '/assets/img';
         return $url_assets_img;
     }
     public function getAssetsCSS() {
         $url_assets_css  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
         $url_assets_css .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
-        $url_assets_css .= '/ProjectCenter';
         $url_assets_css .= '/assets/styles';
         return $url_assets_css;
     }
@@ -33,7 +31,6 @@ class VARIABLES {
     public function getAssetsJS() {
         $url_assets_js  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
         $url_assets_js .= ( $_SERVER["SERVER_PORT"] !== 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
-        $url_assets_js .= '/ProjectCenter';
         $url_assets_js .= '/assets/scripts';
         return $url_assets_js;
     }

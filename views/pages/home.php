@@ -3,7 +3,7 @@
 	require_once '../../user_id.php';
 
 	if(!$user->is_loggedin($user_id)) {
-		$user->redirect('/projectCenter/index.php');
+		$user->redirect('/index.php');
 	}	
 
     if (isset($_POST['projectDetail'])) {
@@ -18,13 +18,14 @@
 
 	include '../partials/header.php';
 	include '../partials/nav.php';
+
 ?>
-<main class="container-fluid">
+<main class="container-fluid home">
 		<?php if(isset($_GET['userLoggedIn'])): ?>
 			<div class="row">
 				<div class="alert alert-success alert-fadeout mb0 col-xs-12">
 					<a href="#" class="close" data-dismiss="alert">&times;</a>
-					Welcome: <?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname']?> If you need any support, write to support@support.com	
+					Welcome: <?= $userInfo['user_firstname'] . " " . $userInfo['user_lastname']?>
 				</div>
 			</div>
 		<?php endif; ?>
@@ -39,20 +40,21 @@
 			<div class="panel mb0 row">
 				<div class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#activeProjects">
 					<div class="row">
-						<a class="collapsed">
-							<h5 class="panel-title text-left col-xs-10">
-		         				Active projects <span>(<?= count($activeProjects); ?>)</span>
-		         			</h5>
-		         			<i class="indicator fa fa-chevron-up text-right col-xs-2"></i>
-				        </a>
+						<h5 class="panel-title text-left col-xs-10">
+	         				Active projects <span>(<?= count($activeProjects); ?>)</span>
+	         			</h5>
+	         			<i class="indicator fa fa-chevron-up text-right col-xs-2"></i>
 			        </div>
 				</div>
 				<div id="activeProjects" class="panel-collapse collapse in" role="tabpanel">
 					<div class="project-lists">
 						<?php if ($activeProjects === false): ?>
-							<div class="proj-false pt10">
-								<p class="">No active projects yet</p>
-								<a href="create-project.php" class="btn btn-primary btn-block pt15 pb15">Create new project</a> 
+							<div class="proj-false pt10 <?= ($usertype == 1 ? "" : "pb10"); ?>">
+								<p class="<?= ($usertype == 1 ? "" : "mb0"); ?>">No active projects yet</p>
+
+								<?php if($usertype == 1) : ?>
+									<a href="create-project.php" class="btn btn-yellow btn-block pt15 pb15">Create new project</a> 
+								<?php endif; ?>
 							</div>
 						<?php else: ?>
 							<?php foreach ($activeProjects as $row): ?>
@@ -74,14 +76,12 @@
 			  	</div>
 			</div>
 			<div class="panel mb0 row">
-				<div class="panel-heading" role="button" data-toggle="collapse" data-parent="#accordion" href="#upcomingProjects">
+				<div class="panel-heading collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#upcomingProjects">
 			        <div class="row">
-				        <a class="collapsed">
-		         			<h5 class="panel-title text-left col-xs-10">
-		         				Upcoming projects <span>(<?= count($upcomingProjects); ?>)</span>
-					    	</h5>
-		         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
-				        </a>
+	         			<h5 class="panel-title text-left col-xs-10">
+	         				Upcoming projects <span>(<?= count($upcomingProjects); ?>)</span>
+				    	</h5>
+	         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
 			        </div>
 				</div>
 				<div id="upcomingProjects" class="panel-collapse collapse" role="tabpanel">
@@ -110,14 +110,12 @@
 			  	</div>
 			</div>
 			<div class="panel mb0 row">
-				<div class="panel-heading" role="button" data-toggle="collapse" href="#previousProjects">
+				<div class="panel-heading collapsed" role="button" data-toggle="collapse" href="#previousProjects">
 					<div class="row">
-				        <a class="collapsed">
-		         			<h5 class="panel-title text-left col-xs-10">
-		         				Previous projects <span>(<?= count($previousProjects); ?>)</span>
-					    	</h5>
-		         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
-				        </a>
+	         			<h5 class="panel-title text-left col-xs-10">
+	         				Previous projects <span>(<?= count($previousProjects); ?>)</span>
+				    	</h5>
+	         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
 			    	</div>
 				</div>
 				<div id="previousProjects" class="panel-collapse collapse" role="tabpanel">
@@ -146,14 +144,12 @@
 			  	</div>
 			</div>
 			<div class="panel mb0 row">
-				<div class="panel-heading"  role="button" data-toggle="collapse" data-parent="#accordion" href="#allProjects">
+				<div class="panel-heading collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#allProjects">
 					<div class="row">
-				        <a class="collapsed">
-							<h5 class="panel-title col-xs-10">
-	         					<?= (($usertype == 1 ? "All projects " . "(" .count($allProjects) . ")" : "My projects " . "(" . count($userProjects) . ")")); ?>
-	         				</h5>
-		         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
-				        </a>
+						<h5 class="panel-title col-xs-10">
+         					<?= (($usertype == 1 ? "All projects " . "(" .count($allProjects) . ")" : "My projects " . "(" . count($userProjects) . ")")); ?>
+         				</h5>
+	         			<i class="indicator fa fa-chevron-down text-right col-xs-2"></i>
 					</div>
 				</div>
 				<div id="allProjects" class="panel-collapse collapse" role="tabpanel">

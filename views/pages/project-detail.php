@@ -11,7 +11,7 @@
 	$tasksChecked        = $projects->tasksChecked($proj_id);
 
 	if(!$user->is_loggedin()) {
-		$user->redirect('/projectCenter/index.php');
+		$user->redirect('/index.php');
 	}
 
 	if(isset($_POST['btn-status'])) {
@@ -48,12 +48,6 @@
 	include '../partials/header.php';
 	include '../partials/nav.php';
 ?>
-
-<!-- <div class="col-xs-4">
-	<p> Status: 
-		<?= ($singleProjectsRow['proj_state'] == 1 ? "Active" : ($singleProjectsRow['proj_state'] == 2 ? 'Finished' : 'Upcoming') ); ?>
-	</p>	
-</div> -->
 <div class="container-fluid">
 	<?php if(isset($_GET['TasksUpdated'])): ?>
 		<div class="row">
@@ -67,6 +61,13 @@
 			<div class="alert alert-danger alert-fadeout mb0 col-xs-12">
 				<a href="#" class="close" data-dismiss="alert">&times;</a>
 				No tasks selected!
+			</div>
+		</div>
+	<?php elseif(isset($_GET['StatusUpdated'])): ?>
+		<div class="row">
+			<div class="alert alert-success alert-fadeout mb0 col-xs-12">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				Project Status updated!
 			</div>
 		</div>
 	<?php endif; ?>
@@ -196,31 +197,33 @@
 			</form>
 		<?php endif; ?>
 	</div>
-	<div class="panel mb0 row">
-		<div class="panel-heading subheading col-xs-12">
-			<p class="panel-title subtitle text-left">
-				Status
-			</p>
+	<?php if($usertype == 1) : ?>
+		<div class="panel mb0 row">
+			<div class="panel-heading subheading col-xs-12">
+				<p class="panel-title subtitle text-left">
+					Status
+				</p>
+			</div>
 		</div>
-	</div>
-	<div class="panel-content status border-bottom row">
-		<form method="POST">
-			<div class="col-xs-4">
-				<button type="submit" class="btn btn-full-multi btn-links btn-primary" name="btn-status" value="Active">Active</button>
-			</div>
-			<div class="col-xs-4">
-				<button type="submit" class="btn btn-full-multi btn-links btn-success" name="btn-status" value="Done">Done</button>
-			</div>
-			<div class="col-xs-4">
-				<button type="submit" class="btn btn-full-multi btn-links btn-warning" name="btn-status" value="Upcoming">Upcoming</button>
-			</div>
-		</form>
-	</div>
+		<div class="panel-content status border-bottom row">
+			<form method="POST">
+				<div class="col-xs-4">
+					<button type="submit" class="btn btn-full-multi btn-links btn-blue" name="btn-status" value="Active">Active</button>
+				</div>
+				<div class="col-xs-4">
+					<button type="submit" class="btn btn-full-multi btn-links btn-green" name="btn-status" value="Done">Done</button>
+				</div>
+				<div class="col-xs-4">
+					<button type="submit" class="btn btn-full-multi btn-links btn-yellow" name="btn-status" value="Upcoming">Upcoming</button>
+				</div>
+			</form>
+		</div>
+	<?php endif; ?>
 </div>
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-			<a href="../home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-chevron-left pull-left"></i> Back to home</a>	
+			<a href="home.php" class="btn btn-block btn-outline btn-to-home btn-links mt15"><i class="fa fa-chevron-left pull-left"></i> Back to home</a>	
 		</div>
 	</div>			
 </div>

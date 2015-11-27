@@ -1,5 +1,5 @@
 <aside class="panel sidebar">
-	<div class="container-fluid">
+	<div class="container-fluid none">
 		<div class="row">
 			<div class="panel-heading col-xs-12">
 				<div class="profile text-center">
@@ -18,13 +18,13 @@
 		</div>	
 	</div>
 		<?php if($usertype == 1) : ?>
-			<a href="create-project.php" class="btn btn-links btn-primary btn-block">Create new project</a> 
-			<a href="sign-up.php" class="btn btn-links btn-success btn-block">Add new user</a>
+			<a href="create-project.php" class="btn btn-links btn-blue btn-block">Create new project</a> 
+			<a href="sign-up.php" class="btn btn-links btn-green btn-block">Add new user</a>
 		<?php endif; ?>
-		<a href="management.php" class="btn btn-links btn-warning btn-block">User Center</a>
+		<a href="management.php" class="btn btn-links btn-yellow btn-block">User Center</a>
 		<?php if ($variables->curPageName() != $homePage): ?>
 			<hr class="height-space">
-			<a href="home.php" class="btn btn-links btn-info btn-block">Back to home</a> 
+			<a href="home.php" class="btn btn-links btn-brown btn-block">Back to home</a> 
 		<?php endif; ?>
 		<hr class="height-space">
 		<a href="logout.php?logout=true" class="btn btn-danger btn-md btn-block btn-links btn-logout">Logout</a>

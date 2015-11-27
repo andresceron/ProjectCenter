@@ -62,13 +62,13 @@
 				</div>
 				<div id="user-<?= $row['user_id']; ?>" class="panel-collapse collapse" role="tabpanel">
 					<div class="project-lists">
-						<a href="tel:5555555555" class="btn btn-lg btn-success col-xs-6 border-right">Tel</a>
-						<a href="mailto:<?= $row['user_email']; ?>" class="btn btn-lg btn-info col-xs-6">Mail</a>
+						<a href="tel:<?= $row['user_phone']; ?>" class="btn btn-links btn-success col-xs-6 border-right border-bottom">Tel</a>
+						<a href="mailto:<?= $row['user_email']; ?>" class="btn btn-links btn-info col-xs-6 border-bottom">Mail</a>
 					</div>
 					<?php if($usertype == 1) : ?>
 							<form method="POST">
-								<button type="submit" class="btn btn-sm btn-warning col-xs-6 border-right mt5" name="editUser">Edit</button>
-								<button type="submit" class="btn btn-sm btn-danger col-xs-6 mt5" name="deleteUser" onclick="return confirm(\'Really delete?\');">Delete</button>
+								<button type="submit" class="btn btn-links btn-warning col-xs-6 border-right" name="editUser">Edit</button>
+								<button type="submit" class="btn btn-links btn-danger col-xs-6" name="deleteUser" onclick="return confirm(\'Really delete?\');">Delete</button>
 								<input type="hidden" name="user_id_edit" value="<?= $row['user_id'] ?>">
 							</form>
 					<?php endif; ?>

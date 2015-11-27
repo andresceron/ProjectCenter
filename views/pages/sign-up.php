@@ -3,9 +3,9 @@ require_once '../../dbconfig.php';
 require_once '../../user_id.php';
 
 if(!$user->is_loggedin()) {
-  $user->redirect('/projectCenter/index.php');
+  $user->redirect('/index.php');
 } elseif ($usertype != 1) {
-  $user->redirect('/projectCenter/home.php');
+  $user->redirect('home.php');
 }
 
 // Select departments query
@@ -17,9 +17,10 @@ if(isset($_POST['btn-signup'])) {
    $u_fname = trim($_POST['txt_fname']);
    $u_lname = trim($_POST['txt_lname']);
    $u_email = trim($_POST['txt_email']);
+   $u_phone = trim($_POST['txt_phone']);
    $u_department = trim($_POST['txt_department']); 
    $u_pass = trim($_POST['txt_pass']); 
-   $u_type = trim($_POST['txt_usertype']);
+   $u_type = "";
    $u_avatar = "";
 
   if(!empty($_POST['txt_avatar'])) {
@@ -27,6 +28,12 @@ if(isset($_POST['btn-signup'])) {
   } else {
     $u_avatar = "";
   }
+  if(!empty($_POST['txt_usertype'])) {
+    $u_type = $_POST['txt_usertype'];
+  } else {
+    $u_type = "";
+  }
+
    
  
    if($u_fname=="") {
@@ -37,10 +44,12 @@ if(isset($_POST['btn-signup'])) {
       $error[] = "provide email !"; 
    } else if(!filter_var($u_email, FILTER_VALIDATE_EMAIL)) {
       $error[] = 'Please enter a valid email address !';
+   } else if($u_phone == "") {
+      $error[] = "Provide an phone number!"; 
    } else if($u_department == "0") {
       $error[] = "provide department section !"; 
    } else if($u_type=="") {
-      $error[] = "Provide a usterstate for this user !";
+      $error[] = "Provide a usertype for this member!";
    } else if($u_pass=="") {
       $error[] = "provide password !";
    } else if(strlen($u_pass) < 6){
@@ -56,7 +65,7 @@ if(isset($_POST['btn-signup'])) {
          if ($row['user_email']==$u_email) {
             $error[] = "Oops! There is already an user registred with this email here!";
          } else {
-            if($user->register($u_fname,$u_lname,$u_email,$u_department,$u_pass,$u_type,$u_avatar)) 
+            if($user->register($u_fname, $u_lname, $u_email, $u_phone, $u_department, $u_pass, $u_type, $u_avatar)) 
             {
                 $user->redirect('sign-up.php?joined');
             }
@@ -124,7 +133,19 @@ include '../partials/nav.php';
     </div>
     <div class="panel-content row">
       <div class="input-group col-xs-12">
-        <input type="email" class="form-control" name="txt_email" placeholder="Enter E-Mail" value="<?php if(isset($error)){echo $u_email;}?>" />
+        <input type="text" class="form-control" name="txt_email" placeholder="Enter last name" value="<?php if(isset($error)){echo $u_lname;}?>" />
+      </div>
+    </div>
+    <div class="panel mb0 row">
+      <div class="panel-heading subheading col-xs-12">
+        <p class="panel-title subtitle text-left">
+          Mobile number
+        </p>
+      </div>
+    </div>
+    <div class="panel-content row">
+      <div class="input-group col-xs-12">
+        <input type="number" class="form-control" name="txt_phone" placeholder="Enter phone" value="<?php if(isset($error)){echo $u_email;}?>" />
       </div>
     </div>
     <div class="panel mb0 row">

@@ -6,18 +6,19 @@ class USER {
         $this->db = $DB_con;
     }
   
-    public function register ($u_fname, $u_lname, $u_email, $u_department, $u_pass, $u_type, $u_avatar) {
+    public function register ($u_fname, $u_lname, $u_email, $u_phone, $u_department, $u_pass, $u_type, $u_avatar) {
         try {
             $options = ['cost' => 12];            
             $hashed_password = password_hash($u_pass, PASSWORD_BCRYPT, $options);
 
-            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_department, user_pass, user_usertype, user_avatar) VALUES (:u_fname, :u_lname, :u_email, :u_department, :u_pass, :u_type, :u_avatar)";
+            $query = "INSERT INTO tbl_users (user_firstname, user_lastname, user_email, user_phone, user_department, user_pass, user_usertype, user_avatar) VALUES (:u_fname, :u_lname, :u_email, :u_phone, :u_department, :u_pass, :u_type, :u_avatar)";
             $stmt = $this->db->prepare($query);    
             $result = $stmt->execute(
               array(
                 'u_fname' => $u_fname,
                 'u_lname' => $u_lname,
                 'u_email' => $u_email,
+                'u_phone' => $u_phone,
                 'u_department' => $u_department,
                 'u_pass' => $hashed_password,
                 'u_type' => $u_type,
@@ -72,10 +73,10 @@ class USER {
         }
     }
 
-    public function update_user($update_firstname, $update_lastname, $update_email, $update_avatar, $user_id) {
+    public function update_user($update_firstname, $update_lastname, $update_email, $update_phone, $update_avatar, $user_id) {
         try {
             $query = "UPDATE tbl_users ";
-            $query .= "SET user_firstname = ?, user_lastname = ?, user_email = ?, user_avatar = ? ";
+            $query .= "SET user_firstname = ?, user_lastname = ?, user_email = ?, user_phone = ?, user_avatar = ? ";
             $query .= "WHERE user_id = ?";
             $stmt = $this->db->prepare($query);
             $stmt->execute(
@@ -83,6 +84,7 @@ class USER {
                     $update_firstname,
                     $update_lastname,
                     $update_email,
+                    $update_phone,
                     $update_avatar,
                     $user_id
                 ));
